@@ -2,8 +2,13 @@
 <html>
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
-        <title>Simple markers</title>
+    <meta charset="utf-8">
+    <title>Simple markers</title>
+    !-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <link rel="stylesheet" href="./css/style.css"
     <style>
         html, body {
             height: 100%;
@@ -11,8 +16,8 @@
             padding: 0;
         }
         #map {
-            height: 50%;
-            width: 40%;
+            height: 75%;
+            width: 100%;
         }
     </style>
 </head>
@@ -56,23 +61,135 @@
             if (xhttp.readyState == 4 && xhttp.status == 200) {
                 model = JSON.parse(xhttp.responseText);
                 var location = model.course.location;
-                initMap(location);
+//                var holeMarker = [];
+                var hole1 = model.course.holes[0].green_location;
+                var hole2 = model.course.holes[1].green_location;
+                var hole3 = model.course.holes[2].green_location;
+                var hole4 = model.course.holes[3].green_location;
+                var hole5 = model.course.holes[4].green_location;
+                var hole6 = model.course.holes[5].green_location;
+                var hole7 = model.course.holes[6].green_location;
+                var hole8 = model.course.holes[7].green_location;
+                var hole9 = model.course.holes[8].green_location;
+                var hole10 = model.course.holes[9].green_location;
+                var hole11 = model.course.holes[10].green_location;
+                var hole12 = model.course.holes[11].green_location;
+                var hole13 = model.course.holes[12].green_location;
+                var hole14 = model.course.holes[13].green_location;
+                var hole15 = model.course.holes[14].green_location;
+                var hole16 = model.course.holes[15].green_location;
+                var hole17 = model.course.holes[16].green_location;
+                var hole18 = model.course.holes[17].green_location;
+                console.log(hole1);
+                initMap(location, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13, hole14, hole15, hole16, hole17, hole18);
             }
         };
         xhttp.open("GET", swingLink, true);
         xhttp.send();
     }
 
-    function initMap(location) {
+    function initMap(location, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13, hole14, hole15, hole16, hole17, hole18) {
         map = new google.maps.Map(document.getElementById('map'), {
             center: location,
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.SATELLITE
         });
+
         var marker = new google.maps.Marker({
             position: location,
             map: map,
             title: "Old St. Andrews"
+        });
+
+        var hole1marker = new google.maps.Marker({
+            position: hole1,
+            map: map,
+            title: "Hole 1"
+        });
+        var hole2marker = new google.maps.Marker({
+            position: hole2,
+            map: map,
+            title: "Hole 2"
+        });
+        var hole3marker = new google.maps.Marker({
+            position: hole3,
+            map: map,
+            title: "Hole 3"
+        });
+        var hole4marker = new google.maps.Marker({
+            position: hole4,
+            map: map,
+            title: "Hole 4"
+        });
+        var hole5marker = new google.maps.Marker({
+            position: hole5,
+            map: map,
+            title: "Hole 5"
+        });
+        var hole6marker = new google.maps.Marker({
+            position: hole6,
+            map: map,
+            title: "Hole 6"
+        });
+        var hole7marker = new google.maps.Marker({
+            position: hole7,
+            map: map,
+            title: "Hole 7"
+        });
+        var hole8marker = new google.maps.Marker({
+            position: hole8,
+            map: map,
+            title: "Hole 8"
+        });
+        var hole9marker = new google.maps.Marker({
+            position: hole9,
+            map: map,
+            title: "Hole 9"
+        });
+        var hole10marker = new google.maps.Marker({
+            position: hole10,
+            map: map,
+            title: "Hole 10"
+        });
+        var hole11marker = new google.maps.Marker({
+            position: hole11,
+            map: map,
+            title: "Hole 11"
+        });
+        var hole12marker = new google.maps.Marker({
+            position: hole12,
+            map: map,
+            title: "Hole 12"
+        });
+        var hole13marker = new google.maps.Marker({
+            position: hole13,
+            map: map,
+            title: "Hole 13"
+        });
+        var hole14marker = new google.maps.Marker({
+            position: hole14,
+            map: map,
+            title: "Hole 14"
+        });
+        var hole15marker = new google.maps.Marker({
+            position: hole15,
+            map: map,
+            title: "Hole 15"
+        });
+        var hole16marker = new google.maps.Marker({
+            position: hole16,
+            map: map,
+            title: "Hole 16"
+        });
+        var hole17marker = new google.maps.Marker({
+            position: hole17,
+            map: map,
+            title: "Hole 17"
+        });
+        var hole18marker = new google.maps.Marker({
+            position: hole18,
+            map: map,
+            title: "Hole 18"
         });
 
     }
