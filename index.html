@@ -12,14 +12,76 @@
     </style>
 </head>
 <body>
-<div id="map"></div>
-<div id="courseInfo"></div>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo">Logo</a>
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">Javascript</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">Javascript</a></li>
+                <li><a href="mobile.html">Mobile</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id="map"></div>
+    <div id="courseInfo"></div>
+    <table>
+        <thead>
+        <tr>
+            <th data-field="id">Player's Name</th>
+            <th data-field="hole1">Hole 1<span id="par1">(Par: )</span></th>
+            <th data-field="hole2">Hole 2</th>
+            <th data-field="hole2">Hole 3</th>
+            <th data-field="hole2">Hole 4</th>
+            <th data-field="hole2">Hole 5</th>
+            <th data-field="hole2">Hole 6</th>
+            <th data-field="hole2">Hole 7</th>
+            <th data-field="hole2">Hole 8</th>
+            <th data-field="hole2">Hole 9</th>
+            <th data-field="hole2">Hole 10</th>
+            <th data-field="hole2">Hole 11</th>
+            <th data-field="hole2">Hole 12</th>
+            <th data-field="hole2">Hole 13</th>
+            <th data-field="hole2">Hole 14</th>
+            <th data-field="hole2">Hole 15</th>
+            <th data-field="hole2">Hole 16</th>
+            <th data-field="hole2">Hole 17</th>
+            <th data-field="hole2">Hole 18</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr>
+            <td>Alvin</td>
+            <td>Eclair</td>
+            <td>$0.87</td>
+        </tr>
+        <tr>
+            <td>Alan</td>
+            <td>Jellybean</td>
+            <td>$3.76</td>
+        </tr>
+        <tr>
+            <td>Jonathan</td>
+            <td>Lollipop</td>
+            <td>$7.00</td>
+        </tr>
+        </tbody>
+    </table>
 <script>
     var redirectURI = document.URL;
     var clientID = "a88e7b45-fa45-4d05-829e-975681adc580";
     var model;
     var hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13, hole14, hole15, hole16, hole17, hole18;
     var ptee1, ptee2, ptee3, ptee4, ptee5, ptee6, ptee7, ptee8, ptee9, ptee10, ptee11, ptee12, ptee13, ptee14, ptee15, ptee16, ptee17, ptee18;
+    var ctee1, ctee2, ctee3, ctee4, ctee5, ctee6, ctee7, ctee8, ctee9, ctee10, ctee11, ctee12, ctee13, ctee14, ctee15, ctee16, ctee17, ctee18;
     var mtee1, mtee2, mtee3, mtee4, mtee5, mtee6, mtee7, mtee8, mtee9, mtee10, mtee11, mtee12, mtee13, mtee14, mtee15, mtee16, mtee17, mtee18;
     var wtee1, wtee2, wtee3, wtee4, wtee5, wtee6, wtee7, wtee8, wtee9, wtee10, wtee11, wtee12, wtee13, wtee14, wtee15, wtee16, wtee17, wtee18;
 
@@ -89,14 +151,72 @@
                 ptee16 = model.course.holes[15].tee_boxes[0].location;
                 ptee17 = model.course.holes[16].tee_boxes[0].location;
                 ptee18 = model.course.holes[17].tee_boxes[0].location;
+                ctee1 = model.course.holes[0].tee_boxes[1].location;
+                ctee2 = model.course.holes[1].tee_boxes[1].location;
+                ctee3 = model.course.holes[2].tee_boxes[1].location;
+                ctee4 = model.course.holes[3].tee_boxes[1].location;
+                ctee5 = model.course.holes[4].tee_boxes[1].location;
+                ctee6 = model.course.holes[5].tee_boxes[1].location;
+                ctee7 = model.course.holes[6].tee_boxes[1].location;
+                ctee8 = model.course.holes[7].tee_boxes[1].location;
+                ctee9 = model.course.holes[8].tee_boxes[1].location;
+                ctee10 = model.course.holes[9].tee_boxes[1].location;
+                ctee11 = model.course.holes[10].tee_boxes[1].location;
+                ctee12 = model.course.holes[11].tee_boxes[1].location;
+                ctee13 = model.course.holes[12].tee_boxes[1].location;
+                ctee14 = model.course.holes[13].tee_boxes[1].location;
+                ctee15 = model.course.holes[14].tee_boxes[1].location;
+                ctee16 = model.course.holes[15].tee_boxes[1].location;
+                ctee17 = model.course.holes[16].tee_boxes[1].location;
+                ctee18 = model.course.holes[17].tee_boxes[1].location;
+                mtee1 = model.course.holes[0].tee_boxes[2].location;
+                mtee2 = model.course.holes[1].tee_boxes[2].location;
+                mtee3 = model.course.holes[2].tee_boxes[2].location;
+                mtee4 = model.course.holes[3].tee_boxes[2].location;
+                mtee5 = model.course.holes[4].tee_boxes[2].location;
+                mtee6 = model.course.holes[5].tee_boxes[2].location;
+                mtee7 = model.course.holes[6].tee_boxes[2].location;
+                mtee8 = model.course.holes[7].tee_boxes[2].location;
+                mtee9 = model.course.holes[8].tee_boxes[2].location;
+                mtee10 = model.course.holes[9].tee_boxes[2].location;
+                mtee11 = model.course.holes[10].tee_boxes[2].location;
+                mtee12 = model.course.holes[11].tee_boxes[2].location;
+                mtee13 = model.course.holes[12].tee_boxes[2].location;
+                mtee14 = model.course.holes[13].tee_boxes[2].location;
+                mtee15 = model.course.holes[14].tee_boxes[2].location;
+                mtee16 = model.course.holes[15].tee_boxes[2].location;
+                mtee17 = model.course.holes[16].tee_boxes[2].location;
+                mtee18 = model.course.holes[17].tee_boxes[2].location;
+                wtee1 = model.course.holes[0].tee_boxes[3].location;
+                wtee2 = model.course.holes[1].tee_boxes[3].location;
+                wtee3 = model.course.holes[2].tee_boxes[3].location;
+                wtee4 = model.course.holes[3].tee_boxes[3].location;
+                wtee5 = model.course.holes[4].tee_boxes[3].location;
+                wtee6 = model.course.holes[5].tee_boxes[3].location;
+                wtee7 = model.course.holes[6].tee_boxes[3].location;
+                wtee8 = model.course.holes[7].tee_boxes[3].location;
+                wtee9 = model.course.holes[8].tee_boxes[3].location;
+                wtee10 = model.course.holes[9].tee_boxes[3].location;
+                wtee11 = model.course.holes[10].tee_boxes[3].location;
+                wtee12 = model.course.holes[11].tee_boxes[3].location;
+                wtee13 = model.course.holes[12].tee_boxes[3].location;
+                wtee14 = model.course.holes[13].tee_boxes[3].location;
+                wtee15 = model.course.holes[14].tee_boxes[3].location;
+                wtee16 = model.course.holes[15].tee_boxes[3].location;
+                wtee17 = model.course.holes[16].tee_boxes[3].location;
+                wtee18 = model.course.holes[17].tee_boxes[3].location;
                 console.log(hole1);
-                initMap(location, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13, hole14, hole15, hole16, hole17, hole18, ptee1, ptee2, ptee3, ptee4, ptee5, ptee6, ptee7, ptee8, ptee9, ptee10, ptee11, ptee12, ptee13, ptee14, ptee15, ptee16, ptee17, ptee18);
+                initMap(location, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13,
+                        hole14, hole15, hole16, hole17, hole18, ptee1, ptee2, ptee3, ptee4, ptee5, ptee6, ptee7, ptee8, ptee9,
+                        ptee10, ptee11, ptee12, ptee13, ptee14, ptee15, ptee16, ptee17, ptee18, ctee1, ctee2, ctee3, ctee4, ctee5, ctee6, ctee7,
+                        ctee8, ctee9, ctee10, ctee11, ctee12, ctee13, ctee14, ctee15, ctee16, ctee17, ctee18);
 
             }
         };
         xhttp.open("GET", swingLink, true);
         xhttp.send();
     }
+
 
     function initMap(location, hole1, hole2, hole3, hole4, hole5, hole6, hole7, hole8, hole9, hole10, hole11, hole12, hole13, hole14, hole15, hole16, hole17, hole18) {
         map = new google.maps.Map(document.getElementById('map'), {
@@ -110,98 +230,145 @@
             map: map,
             title: "Old St. Andrews"
         });
-
-        var hole1marker = new google.maps.Marker({
-            position: hole1,
-            map: map,
-            title: "Hole 1"
+        AddHoles();
+        WomanMarker();
+        MenMarker();
+        ChampionMarker();
+        ProfessionalMarker();
+    }
+    function addHMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
+            map: map
         });
-        var hole2marker = new google.maps.Marker({
-            position: hole2,
+    }
+    function addWMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
             map: map,
-            title: "Hole 2"
+            icon: 'img/purplebox-woman.png'
         });
-        var hole3marker = new google.maps.Marker({
-            position: hole3,
+    }
+    function addMMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
             map: map,
-            title: "Hole 3"
+            icon: 'img/bluebox-men.png'
         });
-        var hole4marker = new google.maps.Marker({
-            position: hole4,
+    }
+    function addCMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
             map: map,
-            title: "Hole 4"
+            icon: 'img/graybox-champion.png'
         });
-        var hole5marker = new google.maps.Marker({
-            position: hole5,
+    }
+    function addPMarker(location) {
+        var marker = new google.maps.Marker({
+            position: location,
             map: map,
-            title: "Hole 5"
+            icon: 'img/blackbox-professional.png'
         });
-        var hole6marker = new google.maps.Marker({
-            position: hole6,
-            map: map,
-            title: "Hole 6"
-        });
-        var hole7marker = new google.maps.Marker({
-            position: hole7,
-            map: map,
-            title: "Hole 7"
-        });
-        var hole8marker = new google.maps.Marker({
-            position: hole8,
-            map: map,
-            title: "Hole 8"
-        });
-        var hole9marker = new google.maps.Marker({
-            position: hole9,
-            map: map,
-            title: "Hole 9"
-        });
-        var hole10marker = new google.maps.Marker({
-            position: hole10,
-            map: map,
-            title: "Hole 10"
-        });
-        var hole11marker = new google.maps.Marker({
-            position: hole11,
-            map: map,
-            title: "Hole 11"
-        });
-        var hole12marker = new google.maps.Marker({
-            position: hole12,
-            map: map,
-            title: "Hole 12"
-        });
-        var hole13marker = new google.maps.Marker({
-            position: hole13,
-            map: map,
-            title: "Hole 13"
-        });
-        var hole14marker = new google.maps.Marker({
-            position: hole14,
-            map: map,
-            title: "Hole 14"
-        });
-        var hole15marker = new google.maps.Marker({
-            position: hole15,
-            map: map,
-            title: "Hole 15"
-        });
-        var hole16marker = new google.maps.Marker({
-            position: hole16,
-            map: map,
-            title: "Hole 16"
-        });
-        var hole17marker = new google.maps.Marker({
-            position: hole17,
-            map: map,
-            title: "Hole 17"
-        });
-        var hole18marker = new google.maps.Marker({
-            position: hole18,
-            map: map,
-            title: "Hole 18"
-        });
-
+    }
+    function AddHoles() {
+        addHMarker(hole1);
+        addHMarker(hole2);
+        addHMarker(hole3);
+        addHMarker(hole4);
+        addHMarker(hole5);
+        addHMarker(hole6);
+        addHMarker(hole7);
+        addHMarker(hole8);
+        addHMarker(hole9);
+        addHMarker(hole10);
+        addHMarker(hole11);
+        addHMarker(hole12);
+        addHMarker(hole13);
+        addHMarker(hole14);
+        addHMarker(hole15);
+        addHMarker(hole16);
+        addHMarker(hole17);
+        addHMarker(hole18);
+    }
+    function WomanMarker() {
+        addWMarker(wtee1);
+        addWMarker(wtee2);
+        addWMarker(wtee3);
+        addWMarker(wtee4);
+        addWMarker(wtee5);
+        addWMarker(wtee6);
+        addWMarker(wtee7);
+        addWMarker(wtee8);
+        addWMarker(wtee9);
+        addWMarker(wtee10);
+        addWMarker(wtee11);
+        addWMarker(wtee12);
+        addWMarker(wtee13);
+        addWMarker(wtee14);
+        addWMarker(wtee15);
+        addWMarker(wtee16);
+        addWMarker(wtee17);
+        addWMarker(wtee18);
+    }
+    function MenMarker() {
+        addMMarker(mtee1);
+        addMMarker(mtee2);
+        addMMarker(mtee3);
+        addMMarker(mtee4);
+        addMMarker(mtee5);
+        addMMarker(mtee6);
+        addMMarker(mtee7);
+        addMMarker(mtee8);
+        addMMarker(mtee9);
+        addMMarker(mtee10);
+        addMMarker(mtee11);
+        addMMarker(mtee12);
+        addMMarker(mtee13);
+        addMMarker(mtee14);
+        addMMarker(mtee15);
+        addMMarker(mtee16);
+        addMMarker(mtee17);
+        addMMarker(mtee18);
+    }
+    function ChampionMarker() {
+        addCMarker(ctee1);
+        addCMarker(ctee2);
+        addCMarker(ctee3);
+        addCMarker(ctee4);
+        addCMarker(ctee5);
+        addCMarker(ctee6);
+        addCMarker(ctee7);
+        addCMarker(ctee8);
+        addCMarker(ctee9);
+        addCMarker(ctee10);
+        addCMarker(ctee11);
+        addCMarker(ctee12);
+        addCMarker(ctee13);
+        addCMarker(ctee14);
+        addCMarker(ctee15);
+        addCMarker(ctee16);
+        addCMarker(ctee17);
+        addCMarker(ctee18);
+    }
+    function ProfessionalMarker() {
+        addPMarker(ptee1);
+        addPMarker(ptee2);
+        addPMarker(ptee3);
+        addPMarker(ptee4);
+        addPMarker(ptee5);
+        addPMarker(ptee6);
+        addPMarker(ptee7);
+        addPMarker(ptee8);
+        addPMarker(ptee9);
+        addPMarker(ptee10);
+        addPMarker(ptee11);
+        addPMarker(ptee12);
+        addPMarker(ptee13);
+        addPMarker(ptee14);
+        addPMarker(ptee15);
+        addPMarker(ptee16);
+        addPMarker(ptee17);
+        addPMarker(ptee18);
     }
 </script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
