@@ -3,10 +3,10 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>Simple markers</title>
+    <title>Golf Score Card</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
-    <link rel="stylesheet" href="./css/style.css"
+    <link rel="stylesheet" href="./css/style.css">
     <style>
 
     </style>
@@ -32,28 +32,30 @@
     </nav>
     <div id="map"></div>
     <div id="courseInfo"></div>
+
+
     <table>
         <thead>
         <tr>
             <th data-field="id">Player's Name</th>
             <th data-field="hole1">Hole 1<span id="par1">(Par: )</span></th>
             <th data-field="hole2">Hole 2</th>
-            <th data-field="hole2">Hole 3</th>
-            <th data-field="hole2">Hole 4</th>
-            <th data-field="hole2">Hole 5</th>
-            <th data-field="hole2">Hole 6</th>
-            <th data-field="hole2">Hole 7</th>
-            <th data-field="hole2">Hole 8</th>
-            <th data-field="hole2">Hole 9</th>
-            <th data-field="hole2">Hole 10</th>
-            <th data-field="hole2">Hole 11</th>
-            <th data-field="hole2">Hole 12</th>
-            <th data-field="hole2">Hole 13</th>
-            <th data-field="hole2">Hole 14</th>
-            <th data-field="hole2">Hole 15</th>
-            <th data-field="hole2">Hole 16</th>
-            <th data-field="hole2">Hole 17</th>
-            <th data-field="hole2">Hole 18</th>
+            <th data-field="hole3">Hole 3</th>
+            <th data-field="hole4">Hole 4</th>
+            <th data-field="hole5">Hole 5</th>
+            <th data-field="hole6">Hole 6</th>
+            <th data-field="hole7">Hole 7</th>
+            <th data-field="hole8">Hole 8</th>
+            <th data-field="hole9">Hole 9</th>
+            <th data-field="hole10">Hole 10</th>
+            <th data-field="hole11">Hole 11</th>
+            <th data-field="hole12">Hole 12</th>
+            <th data-field="hole13">Hole 13</th>
+            <th data-field="hole14">Hole 14</th>
+            <th data-field="hole15">Hole 15</th>
+            <th data-field="hole16">Hole 16</th>
+            <th data-field="hole17">Hole 17</th>
+            <th data-field="hole18">Hole 18</th>
         </tr>
         </thead>
 
@@ -75,7 +77,52 @@
         </tr>
         </tbody>
     </table>
-<script>
+    <div id="boxes">
+        <div id="dialog" class="window">
+            <div class="holder">
+                <table width="100%">
+                    <tr>
+                        <td>Include me in the public list</td>
+                        <td>
+                            <div>
+                                <input type="checkbox" />
+                                <span></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Let my friends see my phone number</td>
+                        <td>
+                            <div>
+                                <input type="checkbox" />
+                                <span></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Let my friends see my email address</td>
+                        <td>
+                            <div>
+                                <input type="checkbox" checked="" />
+                                <span></span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button onclick = "Add9Holes(); Men9Marker();">Add Holes/Men</button>
+                            <input type="submit"  class="close agree" value="Save Settings" >
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="mask"></div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+    <script>
     var redirectURI = document.URL;
     var clientID = "a88e7b45-fa45-4d05-829e-975681adc580";
     var model;
@@ -104,9 +151,6 @@
     }
 
     var map;
-
-
-
 
     function getCourse(courseId) {
         var xhttp = new XMLHttpRequest();
@@ -230,11 +274,11 @@
             map: map,
             title: "Old St. Andrews"
         });
-        AddHoles();
-        WomanMarker();
-        MenMarker();
-        ChampionMarker();
-        ProfessionalMarker();
+//        AddHoles();
+//        WomanMarker();
+//        MenMarker();
+//        ChampionMarker();
+//        ProfessionalMarker();
     }
     function addHMarker(location) {
         var marker = new google.maps.Marker({
@@ -270,7 +314,7 @@
             icon: 'img/blackbox-professional.png'
         });
     }
-    function AddHoles() {
+    function Add18Holes() {
         addHMarker(hole1);
         addHMarker(hole2);
         addHMarker(hole3);
@@ -290,7 +334,29 @@
         addHMarker(hole17);
         addHMarker(hole18);
     }
-    function WomanMarker() {
+    function Add9Holes() {
+        addHMarker(hole1);
+        addHMarker(hole2);
+        addHMarker(hole3);
+        addHMarker(hole4);
+        addHMarker(hole5);
+        addHMarker(hole6);
+        addHMarker(hole7);
+        addHMarker(hole8);
+        addHMarker(hole9);
+    }
+    function Woman9Marker() {
+        addWMarker(wtee1);
+        addWMarker(wtee2);
+        addWMarker(wtee3);
+        addWMarker(wtee4);
+        addWMarker(wtee5);
+        addWMarker(wtee6);
+        addWMarker(wtee7);
+        addWMarker(wtee8);
+        addWMarker(wtee9);
+    }
+    function Woman18Marker() {
         addWMarker(wtee1);
         addWMarker(wtee2);
         addWMarker(wtee3);
@@ -310,7 +376,7 @@
         addWMarker(wtee17);
         addWMarker(wtee18);
     }
-    function MenMarker() {
+    function Men9Marker() {
         addMMarker(mtee1);
         addMMarker(mtee2);
         addMMarker(mtee3);
@@ -330,7 +396,27 @@
         addMMarker(mtee17);
         addMMarker(mtee18);
     }
-    function ChampionMarker() {
+    function Men18Marker() {
+        addMMarker(mtee1);
+        addMMarker(mtee2);
+        addMMarker(mtee3);
+        addMMarker(mtee4);
+        addMMarker(mtee5);
+        addMMarker(mtee6);
+        addMMarker(mtee7);
+        addMMarker(mtee8);
+        addMMarker(mtee9);
+        addMMarker(mtee10);
+        addMMarker(mtee11);
+        addMMarker(mtee12);
+        addMMarker(mtee13);
+        addMMarker(mtee14);
+        addMMarker(mtee15);
+        addMMarker(mtee16);
+        addMMarker(mtee17);
+        addMMarker(mtee18);
+    }
+    function Champion18Marker() {
         addCMarker(ctee1);
         addCMarker(ctee2);
         addCMarker(ctee3);
@@ -349,8 +435,20 @@
         addCMarker(ctee16);
         addCMarker(ctee17);
         addCMarker(ctee18);
+
     }
-    function ProfessionalMarker() {
+    function Champion9Marker() {
+        addCMarker(ctee1);
+        addCMarker(ctee2);
+        addCMarker(ctee3);
+        addCMarker(ctee4);
+        addCMarker(ctee5);
+        addCMarker(ctee6);
+        addCMarker(ctee7);
+        addCMarker(ctee8);
+        addCMarker(ctee9);
+    }
+    function Professional18Marker() {
         addPMarker(ptee1);
         addPMarker(ptee2);
         addPMarker(ptee3);
@@ -370,10 +468,62 @@
         addPMarker(ptee17);
         addPMarker(ptee18);
     }
+    function Professional9Marker() {
+        addPMarker(ptee1);
+        addPMarker(ptee2);
+        addPMarker(ptee3);
+        addPMarker(ptee4);
+        addPMarker(ptee5);
+        addPMarker(ptee6);
+        addPMarker(ptee7);
+        addPMarker(ptee8);
+        addPMarker(ptee9);
+    }
+    $(document).ready(function() {
+
+        var id = '#dialog';
+
+//Get the screen height and width
+        var maskHeight = $(document).height();
+        var maskWidth = $(window).width();
+
+//Set heigth and width to mask to fill up the whole screen
+        $('#mask').css({'width':maskWidth,'height':maskHeight});
+
+//transition effect
+        $('#mask').fadeIn(500);
+        $('#mask').fadeTo("slow",0.9);
+
+//Get the window height and width(
+        var winH = $(window).height();
+        var winW = $(window).width();
+
+//Set the popup window to center
+        $(id).css('top',  winH/2-$(id).height()/2);
+        $(id).css('left', winW/2-$(id).width()/2);
+
+//transition effect
+        $(id).fadeIn(2000);
+
+//if close button is clicked
+        $('.window .close').click(function (e) {
+//Cancel the link behavior
+            e.preventDefault();
+
+            $('#mask').hide();
+            $('.window').hide();
+        });
+
+//if mask is clicked
+        $('#mask').click(function () {
+            $(this).hide();
+            $('.window').hide();
+        });
+
+    });
+
 </script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<!-- Compiled and minified JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzseJI9tag50xHhEFstcLwOufPGBYqZnk&signed_in=true&callback=initMap"></script>
 </body>
