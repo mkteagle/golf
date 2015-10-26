@@ -32,9 +32,7 @@
     </nav>
     <div id="map"></div>
     <div id="courseInfo"></div>
-
-
-    <table>
+    <table class="editableTable">
         <thead>
         <tr>
             <th data-field="id">Player's Name</th>
@@ -81,33 +79,6 @@
         <div id="dialog" class="window">
             <div class="holder">
                 <table width="100%">
-                    <tr>
-                        <td>Include me in the public list</td>
-                        <td>
-                            <div>
-                                <input type="checkbox" />
-                                <span></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Let my friends see my phone number</td>
-                        <td>
-                            <div>
-                                <input type="checkbox" />
-                                <span></span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Let my friends see my email address</td>
-                        <td>
-                            <div>
-                                <input type="checkbox" checked="" />
-                                <span></span>
-                            </div>
-                        </td>
-                    </tr>
                     <tr>
                         <td colspan="2">
                             <button onclick = "Add9Holes(); Men9Marker();">Add Holes/Men</button>
@@ -521,8 +492,9 @@
         });
 
     });
+    $(function () { $("td").dblclick(function () { var OriginalContent = $(this).text(); $(this).addClass("cellEditing"); $(this).html("<input type='text' value='" + OriginalContent + "' />"); $(this).children().first().focus(); $(this).children().first().keypress(function (e) { if (e.which == 13) { var newContent = $(this).val(); $(this).parent().text(newContent); $(this).parent().removeClass("cellEditing"); } }); $(this).children().first().blur(function(){ $(this).parent().text(OriginalContent); $(this).parent().removeClass("cellEditing"); }); }); });
 
-</script>
+    </script>
 
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzseJI9tag50xHhEFstcLwOufPGBYqZnk&signed_in=true&callback=initMap"></script>
