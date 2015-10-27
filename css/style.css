@@ -73,33 +73,30 @@ input[type=submit] {
 .logos {
     margin-left: 20px;
 }
-@import "compass/css3";
 
 .table-editable {
     position: relative;
-
-.glyphicon {
-    font-size: 20px;
-}
 }
 
 .table-remove {
     color: #700;
     cursor: pointer;
-
-&:hover {
+}
+.table-remove :hover {
      color: #f00;
- }
 }
 
 .table-up, .table-down {
     color: #007;
     cursor: pointer;
-
-&:hover {
+}
+.table-up :hover {
      color: #00f;
  }
+.table-down :hover {
+    color: #00f;
 }
+
 
 .table-add {
     color: #070;
@@ -107,8 +104,15 @@ input[type=submit] {
     position: absolute;
     top: 8px;
     right: 0;
-
-&:hover {
+}
+.table-add :hover {
      color: #0b0;
- }
+}
+
+#tables {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    background: white;
+    padding-left: 20px;
 }
