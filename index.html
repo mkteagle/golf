@@ -86,8 +86,8 @@
                     <label>Tee Box Selection</label>
                 <select class="browser-default" id="tee">
                     <option value="" disabled selected>Choose your Tee Box</option>
-                    <option value="men's">Men's</option>
-                    <option value="women's">Women's</option>
+                    <option value="men">Men's</option>
+                    <option value="women">Women's</option>
                     <option value="champion">Champion</option>
                     <option value="professional">Professional</option>
                 </select>
@@ -187,17 +187,18 @@
     }
     function addTeeBox(holecount, tee) {
         var index;
+        var teebox;
         if (tee == "men's") {
             index = 1;
             for (var i = 0; i < holecount; i++) {
-                var teebox = model.course.holes[i].tee_boxes[index].location;
-                addWMarker(teebox);
+                teebox = model.course.holes[i].tee_boxes[index].location;
+                addMMarker(teebox);
             }
         }
         if (tee == woman) {
             index = 1;
             for (var i = 0; i < holecount; i++) {
-                var teebox = model.course.holes[i].tee_boxes[index].location;
+                teebox = model.course.holes[i].tee_boxes[index].location;
                 addWMarker(teebox);
             }
         }
