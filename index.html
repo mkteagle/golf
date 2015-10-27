@@ -6,6 +6,7 @@
     <title>Golf Score Card</title>
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
     <style>
 
@@ -17,69 +18,82 @@
             <a href="#!" class="brand-logo logos">Golf Score Card</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="right hide-on-med-and-down">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
                 <li><a href="#" onclick="settings()">Settings</a></li>
             </ul>
             <ul class="side-nav" id="mobile-demo">
-                <li><a href="sass.html">Sass</a></li>
-                <li><a href="badges.html">Components</a></li>
-                <li><a href="collapsible.html">Javascript</a></li>
                 <li><a href="#" onclick="settings()">Settings</a></li>
             </ul>
         </div>
     </nav>
     <div id="map"></div>
     <div id="courseInfo"></div>
-    <table class="editableTable">
-        <thead>
-        <tr>
-            <th data-field="id">Player's Name</th>
-            <th data-field="hole1">Hole 1<span id="par1">(Par: )</span></th>
-            <th data-field="hole2">Hole 2</th>
-            <th data-field="hole3">Hole 3</th>
-            <th data-field="hole4">Hole 4</th>
-            <th data-field="hole5">Hole 5</th>
-            <th data-field="hole6">Hole 6</th>
-            <th data-field="hole7">Hole 7</th>
-            <th data-field="hole8">Hole 8</th>
-            <th data-field="hole9">Hole 9</th>
-            <th data-field="hole10">Hole 10</th>
-            <th data-field="hole11">Hole 11</th>
-            <th data-field="hole12">Hole 12</th>
-            <th data-field="hole13">Hole 13</th>
-            <th data-field="hole14">Hole 14</th>
-            <th data-field="hole15">Hole 15</th>
-            <th data-field="hole16">Hole 16</th>
-            <th data-field="hole17">Hole 17</th>
-            <th data-field="hole18">Hole 18</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-        </tr>
-        <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-        </tr>
-        <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-        </tr>
-        </tbody>
-    </table>
+    <div id="table" class="table-editable">
+        <span class="table-add"><i class="fa fa-plus fa-2x"></i></span>
+        <table class="table">
+            <tr>
+                <th>Name</th>
+                <th>Hole 1</th>
+                <th>Hole 2</th>
+                <th>Hole 3</th>
+                <th>Hole 4</th>
+                <th>Hole 5</th>
+                <th>Hole 6</th>
+                <th>Hole 7</th>
+                <th>Hole 8</th>
+                <th>Hole 9</th>
+                <th></th>
+                <th></th>
+            </tr>
+            <tr>
+                <td contenteditable="true">Mike Teagle</td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td>
+                    <span class="table-remove"><i class="fa fa-trash fa-2x"></i></span>
+                </td>
+            </tr>
+            <!-- This is our clonable table line -->
+            <tr class="hide">
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td contenteditable="true"></td>
+                <td>
+                    <span class="table-remove"> <i class="fa fa-trash fa-2x"></i></span>
+                </td>
+            </tr>
+        </table>
+    </div>
     <div id="boxes">
         <div id="dialog" class="window">
             <div class="holder">
-                <button onclick = "Add9Holes(); Men9Marker(); remove9holes();">Add 9 Holes/Men</button>
-                <input type="submit"  class="close agree" value="Save Settings" >
+                <form class="col s12 m6">
+                    <label>Tee Box Selection</label>
+                <select class="browser-default">
+                    <option value="" disabled selected>Choose your Tee Box</option>
+                    <option value="men's">Men's</option>
+                    <option value="women's">Women's</option>
+                    <option value="champion">Champion</option>
+                    <option value="professional">Professional</option>
+                </select>
+            </div>
+        </div>
+        </form>
+                <!--<div class="row"><button onclick = "Add9Holes(); Men9Marker(); remove9holes();">Add 9 Holes/Men</button>-->
+                <!--<input type="submit"  class="close agree" value="Save Settings" ></div>-->
             </div>
         </div>
         <div id="mask"></div>
@@ -126,8 +140,7 @@
                 var location = model.course.location;
                 console.log(model.course.holes.length);
                 for (var i = 0; i < model.course.holes.length; i ++) {
-                    var hole = model.course.holes[i].green_location
-                    console.log(model.course.holes[i].green_location);
+                    var hole = model.course.holes[i].green_location;
                     Add9Holes(hole);
                 }
 //                hole1 = model.course.holes[0].green_location;
@@ -305,16 +318,8 @@
         addHMarker(hole18);
     }
     function Add9Holes(location) {
-            addHMarker(location);
-//        addHMarker(hole1);
-//        addHMarker(hole2);
-//        addHMarker(hole3);
-//        addHMarker(hole4);
-//        addHMarker(hole5);
-//        addHMarker(hole6);
-//        addHMarker(hole7);
-//        addHMarker(hole8);
-//        addHMarker(hole9);
+        addHMarker(location);
+
     }
     function Woman9Marker() {
         addWMarker(wtee1);
@@ -492,6 +497,62 @@
             $('.editableTable tr').find('td:eq(i),th:eq(i)').remove();
         }
     }
+        //editable table here//
+
+    var $TABLE = $('#table');
+    var $BTN = $('#export-btn');
+    var $EXPORT = $('#export');
+
+    $('.table-add').click(function () {
+        var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
+        $TABLE.find('table').append($clone);
+    });
+
+    $('.table-remove').click(function () {
+        $(this).parents('tr').detach();
+    });
+
+    $('.table-up').click(function () {
+        var $row = $(this).parents('tr');
+        if ($row.index() === 1) return; // Don't go above the header
+        $row.prev().before($row.get(0));
+    });
+
+    $('.table-down').click(function () {
+        var $row = $(this).parents('tr');
+        $row.next().after($row.get(0));
+    });
+
+    // A few jQuery helpers for exporting only
+    jQuery.fn.pop = [].pop;
+    jQuery.fn.shift = [].shift;
+
+    $BTN.click(function () {
+        var $rows = $TABLE.find('tr:not(:hidden)');
+        var headers = [];
+        var data = [];
+
+        // Get the headers (add special header logic here)
+        $($rows.shift()).find('th:not(:empty)').each(function () {
+            headers.push($(this).text().toLowerCase());
+        });
+
+        // Turn all existing rows into a loopable array
+        $rows.each(function () {
+            var $td = $(this).find('td');
+            var h = {};
+
+            // Use the headers from earlier to name our hash keys
+            headers.forEach(function (header, i) {
+                h[header] = $td.eq(i).text();
+            });
+
+            data.push(h);
+        });
+
+        // Output the result
+        $EXPORT.text(JSON.stringify(data));
+    });
     </script>
 
 <script async defer
