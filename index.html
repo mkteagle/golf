@@ -23,12 +23,7 @@
     <link rel="stylesheet" href="css/editablegrid.css" type="text/css" media="screen">
 
     <style>
-        body {
-            font-family: 'lucida grande', tahoma, verdana, arial, sans-serif;
-            font-size: 11px;
-        }
-
-        h1 {
+       h1 {
             font-size: 15px;
         }
 
@@ -44,7 +39,7 @@
         table.testgrid {
             border-collapse: collapse;
             border: 1px solid #CCB;
-            width: 800px;
+            width: 75%;
         }
 
         table.testgrid td, table.testgrid th {
@@ -65,7 +60,7 @@
 
     <script>
         window.onload = function () {
-            editableGrid = new EditableGrid("DemoGridAttach", {sortIconUp: "up.png", sortIconDown: "down.png"});
+            editableGrid = new EditableGrid("DemoGridAttach", {sortIconUp: "<i class='fa fa-sort-amount-asc'></i>", sortIconDown: "<i class='fa fa-sort-amount-dec'></i>"});
 
             // we build and load the metadata in Javascript
             editableGrid.load({
@@ -111,7 +106,7 @@
     <h1>Score Card</h1>
     <table id="playersTable" class="testgrid">
         <tr id="pHeading">
-            <th>Name</th>
+            <th class="playersName">Name</th>
             <th>Hole 1</th>
             <th>Hole 2</th>
             <th>Hole 3</th>
@@ -124,7 +119,7 @@
             <th>Totals</th>
         </tr>
         <tr id="R1">
-            <td>Duke</td>
+            <td class="playersName">Duke</td>
             <td></td>
             <td></td>
             <td></td>
@@ -137,7 +132,7 @@
             <td></td>
         </tr>
         <tr id="R2">
-            <td>Juniof</td>
+            <td class="playersName">Juniof</td>
             <td></td>
             <td></td>
             <td></td>
@@ -150,7 +145,7 @@
             <td></td>
         </tr>
         <tr id="R3">
-            <td>Dujardin</td>
+            <td class="playersName">Dujardin</td>
             <td></td>
             <td></td>
             <td></td>
@@ -163,85 +158,7 @@
             <td>5000</td>
         </tr>
         <tr id="R4">
-            <td>Conway</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="R5">
-            <td>Shannon</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="R6">
-            <td>Benton</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="R7">
-            <td>Belletoise</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="R8">
-            <td>Santa-Maria</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="R9">
-            <td>Dieumerci</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr id="R10">
-            <td>Morin</td>
+            <td class="playersName">Conway</td>
             <td></td>
             <td></td>
             <td></td>
@@ -351,7 +268,8 @@
 
             for (var i = 0; i < 9; i++) {
                 var hole = "Hole " + index;
-                addCol(hole);
+                var holeClass = "hole" + index;
+                addCol(hole, holeClass);
                 index++;
             }
         }
@@ -444,10 +362,17 @@
     }
     $(document).ready(settings());
 
-    function addCol(colName) {
+    function addCol(colName, holeClass) {
+        var currentNumberOfTDsInARow = $('#playersTable tr:first td').length;
+        var newColNum = currentNumberOfTDsInARow;
+        var rows = $('#playersTable tbody tr');
+        for (var i = 0; i < rows.length; i++) {
+            var lastTDClone = $(rows[i]).find('td:last').clone();
+            $(rows[i]).find('td:last').after(lastTDClone);
+        }
         $("#playersTable #pHeading").each(function () {
-            $(this).append("<th>" + colName + "</th>");
-        })
+            $(this).append("<th class = 'editablegrid-" + holeClass + "' >" + colName + "</th>");
+        });
     }
 
     //editable table here//
