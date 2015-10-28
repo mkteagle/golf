@@ -110,9 +110,10 @@ input[type=submit] {
 }
 
 #tables {
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin: 10px 10px 10px 10px;
     background: white;
-    padding-left: 20px;
+    padding: 20px;
+}
+#addP {
+    padding: 20px;
 }
