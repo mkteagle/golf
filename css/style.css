@@ -120,3 +120,12 @@ input[type=submit] {
 .playersName {
     /*width: 50px;*/
 }
+.hide {
+    display: none;
+}
+.show-header {
+    display: table-header-group;
+}
+.show-cell {
+    display: table-cell;
+}

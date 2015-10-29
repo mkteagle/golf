@@ -23,11 +23,7 @@
     <link rel="stylesheet" href="css/editablegrid.css" type="text/css" media="screen">
 
     <style>
-       h1 {
-            font-size: 15px;
-        }
-
-        a {
+       a {
             color: #548dc4;
             text-decoration: none;
         }
@@ -39,7 +35,7 @@
         table.testgrid {
             border-collapse: collapse;
             border: 1px solid #CCB;
-            width: 75%;
+            width: 95%;
         }
 
         table.testgrid td, table.testgrid th {
@@ -60,7 +56,10 @@
 
     <script>
         window.onload = function () {
-            editableGrid = new EditableGrid("DemoGridAttach", {sortIconUp: "<i class='fa fa-sort-amount-asc'></i>", sortIconDown: "<i class='fa fa-sort-amount-dec'></i>"});
+            editableGrid = new EditableGrid("DemoGridAttach", {
+                sortIconUp: "<i class='fa fa-sort-amount-asc'></i>",
+                sortIconDown: "<i class='fa fa-sort-amount-dec'></i>"
+            });
 
             // we build and load the metadata in Javascript
             editableGrid.load({
@@ -75,7 +74,17 @@
                     {name: "hole7", datatype: "string", editable: true},
                     {name: "hole8", datatype: "string", editable: true},
                     {name: "hole9", datatype: "string", editable: true},
-                    {name: "total", datatype: "string", editable: false}
+                    {name: "totals9", datatype: "string", editable: false},
+                    {name: "hole10", datatype: "string", editable: true},
+                    {name: "hole11", datatype: "string", editable: true},
+                    {name: "hole12", datatype: "string", editable: true},
+                    {name: "hole13", datatype: "string", editable: true},
+                    {name: "hole14", datatype: "string", editable: true},
+                    {name: "hole15", datatype: "string", editable: true},
+                    {name: "hole16", datatype: "string", editable: true},
+                    {name: "hole17", datatype: "string", editable: true},
+                    {name: "hole18", datatype: "string", editable: true},
+                    {name: "totals18", datatype: "string", editable: false}
                 ]
             });
 
@@ -104,6 +113,46 @@
 <div id="courseInfo"></div>
 <section id="tables">
     <h1>Score Card</h1>
+    <div id="addP" onclick="addRows()">Add Player</div>
+    <div class="row">
+        <div class="col s12 m6">
+            <div class="card blue-grey darken-1">
+                <div class="card-content white-text">
+                    <span class="card-title">Legend</span>
+                    <table>
+                        <th></th>
+                        <th>Hole 1</th>
+                        <th>Hole 2</th>
+                        <th>Hole 3</th>
+                        <th>Hole 4</th>
+                        <th>Hole 5</th>
+                        <th>Hole 6</th>
+                        <th>Hole 7</th>
+                        <th>Hole 8</th>
+                        <th>Hole 9</th>
+                        <th class="hide hole10">Hole 10</th>
+                        <th class="hide hole11">Hole 11</th>
+                        <th class="hide hole12">Hole 12</th>
+                        <th class="hide hole13">Hole 13</th>
+                        <th class="hide hole14">Hole 14</th>
+                        <th class="hide hole15">Hole 15</th>
+                        <th class="hide hole16">Hole 16</th>
+                        <th class="hide hole17">Hole 17</th>
+                        <th class="hide hole18">Hole 18</th>
+                        <tr><td>Par</td></tr>
+                        <tr><td>Yard 1</td></tr>
+                        <tr><td>Yard 2</td></tr>
+                        <tr><td>Yard 3</td></tr>
+                        <tr><td>Yard 4</td></tr>
+                    </table>
+                </div>
+                <div class="card-action">
+                    <a href="#">This is a link</a>
+                    <a href="#">This is a link</a>
+                </div>
+            </div>
+        </div>
+    </div>
     <table id="playersTable" class="testgrid">
         <tr id="pHeading">
             <th class="playersName">Name</th>
@@ -116,10 +165,21 @@
             <th>Hole 7</th>
             <th>Hole 8</th>
             <th>Hole 9</th>
-            <th>Totals</th>
+            <th class="totals9">Totals</th>
+            <th class="hide hole10">Hole 10</th>
+            <th class="hide hole11">Hole 11</th>
+            <th class="hide hole12">Hole 12</th>
+            <th class="hide hole13">Hole 13</th>
+            <th class="hide hole14">Hole 14</th>
+            <th class="hide hole15">Hole 15</th>
+            <th class="hide hole16">Hole 16</th>
+            <th class="hide hole17">Hole 17</th>
+            <th class="hide hole18">Hole 18</th>
+            <th class="totals18 hide">Totals</th>
+
         </tr>
         <tr id="R1">
-            <td class="playersName">Duke</td>
+            <td class="playersName">Mike Teagle</td>
             <td></td>
             <td></td>
             <td></td>
@@ -129,10 +189,20 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td class="totals9"></td>
+            <td class="hide hole10"></td>
+            <td class="hide hole11"></td>
+            <td class="hide hole12"></td>
+            <td class="hide hole13"></td>
+            <td class="hide hole14"></td>
+            <td class="hide hole15"></td>
+            <td class="hide hole16"></td>
+            <td class="hide hole17"></td>
+            <td class="hide hole18"></td>
+            <td class="totals18 hide"></td>
         </tr>
         <tr id="R2">
-            <td class="playersName">Juniof</td>
+            <td class="playersName">Jen Teagle</td>
             <td></td>
             <td></td>
             <td></td>
@@ -142,10 +212,20 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td class="totals9"></td>
+            <td class="hide hole10"></td>
+            <td class="hide hole11"></td>
+            <td class="hide hole12"></td>
+            <td class="hide hole13"></td>
+            <td class="hide hole14"></td>
+            <td class="hide hole15"></td>
+            <td class="hide hole16"></td>
+            <td class="hide hole17"></td>
+            <td class="hide hole18"></td>
+            <td class="totals18 hide"></td>
         </tr>
         <tr id="R3">
-            <td class="playersName">Dujardin</td>
+            <td class="playersName">Madison Teagle</td>
             <td></td>
             <td></td>
             <td></td>
@@ -155,10 +235,20 @@
             <td></td>
             <td></td>
             <td></td>
-            <td>5000</td>
+            <td class="totals9"></td>
+            <td class="hide hole10"></td>
+            <td class="hide hole11"></td>
+            <td class="hide hole12"></td>
+            <td class="hide hole13"></td>
+            <td class="hide hole14"></td>
+            <td class="hide hole15"></td>
+            <td class="hide hole16"></td>
+            <td class="hide hole17"></td>
+            <td class="hide hole18"></td>
+            <td class="totals18 hide"></td>
         </tr>
         <tr id="R4">
-            <td class="playersName">Conway</td>
+            <td class="playersName">Britain Teagle</td>
             <td></td>
             <td></td>
             <td></td>
@@ -168,7 +258,17 @@
             <td></td>
             <td></td>
             <td></td>
-            <td></td>
+            <td class="totals9"></td>
+            <td class="hide hole10"></td>
+            <td class="hide hole11"></td>
+            <td class="hide hole12"></td>
+            <td class="hide hole13"></td>
+            <td class="hide hole14"></td>
+            <td class="hide hole15"></td>
+            <td class="hide hole16"></td>
+            <td class="hide hole17"></td>
+            <td class="hide hole18"></td>
+            <td class="totals18 hide"></td>
         </tr>
     </table>
 </section>
@@ -191,11 +291,10 @@
                     <option value=18>18 Holes</option>
                 </select>
                 <input type="submit" class="close agree" value="Save Settings" onclick="submitSettings()">
+                <button class="close agree" onclick="deleteMarkers()">Clear Markers</button>
             </form>
         </div>
     </div>
-    <!--<div class="row"><button onclick = "Add9Holes(); Men9Marker(); remove9holes();">Add 9 Holes/Men</button>-->
-
 </div>
 </div>
 <div id="mask"></div>
@@ -208,10 +307,11 @@
     var mIcon = 'img/bluebox-men.png';
     var cIcon = 'img/graybox-champion.png';
     var pIcon = 'img/blackbox-professional.png';
-
     var redirectURI = document.URL;
     var clientID = "a88e7b45-fa45-4d05-829e-975681adc580";
     var model;
+    var map;
+    var markers = [];
 
     var accessToken = getUrlVars().access_token;
     var swingBySwing = "https://api.swingbyswing.com/v2/oauth/authorize?scope=read&redirect_uri=" + encodeURI(redirectURI) + "&response_type=token&client_id=" + clientID;
@@ -230,7 +330,7 @@
                 });
         return vars;
     }
-    var map;
+
     function getCourse(courseId) {
         var xhttp = new XMLHttpRequest();
         var swingLink = "https://api.swingbyswing.com/v2/courses/" + courseId + "?includes=practice_area&access_token=" + accessToken;
@@ -259,21 +359,16 @@
         });
     }
     function submitSettings(holecount, tee) {
-        tee = document.getElementById("tee").value;
-        holecount = document.getElementById("holecount").value;
+        var tee = document.getElementById("tee").value;
+        var holecount = document.getElementById("holecount").value;
         addHoles(holecount);
         addTeeBox(holecount, tee);
         if (holecount == 18) {
-            var index = 10;
-
-            for (var i = 0; i < 9; i++) {
-                var hole = "Hole " + index;
-                var holeClass = "hole" + index;
-                addCol(hole, holeClass);
-                index++;
-            }
+            addClass(holecount);
         }
-
+        if (holecount == 9) {
+            removeClass(holecount, tee);
+        }
     }
     function addHoles(holecount) {
         for (var i = 0; i < holecount; i++) {
@@ -319,6 +414,7 @@
             position: location,
             map: map
         });
+        markers.push(marker);
     }
     function addMarker(location, icon) {
         var marker = new google.maps.Marker({
@@ -326,6 +422,20 @@
             map: map,
             icon: icon
         });
+        markers.push(marker);
+    }
+    function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+            markers[i].setMap(map);
+        }
+    }
+    function clearMarkers() {
+        setMapOnAll(null);
+    }
+
+    function deleteMarkers() {
+        clearMarkers();
+        markers = [];
     }
     function settings() {
         var id = '#dialog';
@@ -361,43 +471,36 @@
 
     }
     $(document).ready(settings());
-
-    function addCol(colName, holeClass) {
-        var currentNumberOfTDsInARow = $('#playersTable tr:first td').length;
-        var newColNum = currentNumberOfTDsInARow;
-        var rows = $('#playersTable tbody tr');
-        for (var i = 0; i < rows.length; i++) {
-            var lastTDClone = $(rows[i]).find('td:last').clone();
-            $(rows[i]).find('td:last').after(lastTDClone);
-        }
-        $("#playersTable #pHeading").each(function () {
-            $(this).append("<th class = 'editablegrid-" + holeClass + "' >" + colName + "</th>");
-        });
+// need a funtion to addClass to
+    function addClass() {
+        $('.totals9').addClass('hide');
+        $('.hole10').removeClass('hide').addClass('show-cell');
+        $('.hole11').removeClass('hide').addClass('show-cell');
+        $('.hole12').removeClass('hide').addClass('show-cell');
+        $('.hole13').removeClass('hide').addClass('show-cell');
+        $('.hole14').removeClass('hide').addClass('show-cell');
+        $('.hole15').removeClass('hide').addClass('show-cell');
+        $('.hole16').removeClass('hide').addClass('show-cell');
+        $('.hole17').removeClass('hide').addClass('show-cell');
+        $('.hole18').removeClass('hide').addClass('show-cell');
+        $('.totals18').removeClass('hide').addClass('show-cell');
     }
-
-    //editable table here//
-
-    var $TABLE = $('#table');
-
-    $('.table-add').click(function () {
-        var $clone = $TABLE.find('tr.hide').clone(true).removeClass('hide table-line');
-        $TABLE.find('table').append($clone);
-    });
-
-    $('.table-remove').click(function () {
-        $(this).parents('tr').detach();
-    });
-
-    $('.table-up').click(function () {
-        var $row = $(this).parents('tr');
-        if ($row.index() === 1) return; // Don't go above the header
-        $row.prev().before($row.get(0));
-    });
-
-    $('.table-down').click(function () {
-        var $row = $(this).parents('tr');
-        $row.next().after($row.get(0));
-    });
+    function removeClass(holecount, tee) {
+        $('.totals9').removeClass('hide').addClass('show-cell');
+        $('.hole10').removeClass('show-cell').addClass('hide');
+        $('.hole11').removeClass('show-cell').addClass('hide');
+        $('.hole12').removeClass('show-cell').addClass('hide');
+        $('.hole13').removeClass('show-cell').addClass('hide');
+        $('.hole14').removeClass('show-cell').addClass('hide');
+        $('.hole15').removeClass('show-cell').addClass('hide');
+        $('.hole16').removeClass('show-cell').addClass('hide');
+        $('.hole17').removeClass('show-cell').addClass('hide');
+        $('.hole18').removeClass('show-cell').addClass('hide');
+        $('.totals18').removeClass('show-cell').addClass('hide');
+        deleteMarkers();
+        addHoles(holecount);
+        addTeeBox(holecount, tee);
+    }
 
 </script>
 <script async defer
