@@ -123,9 +123,9 @@ input[type=submit] {
 .hide {
     display: none;
 }
-.show-header {
-    display: table-header-group;
-}
 .show-cell {
     display: table-cell;
+}
+#playersTable td {
+    height: 40px;
 }
