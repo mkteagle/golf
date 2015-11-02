@@ -4,6 +4,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <title>Golf Score Card</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -20,38 +21,6 @@
     <!-- [DO NOT DEPLOY] -->
     <script src="js/editablegrid_charts.js"></script>
     <link rel="stylesheet" href="css/editablegrid.css" type="text/css" media="screen">
-
-    <style>
-       a {
-            color: #548dc4;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-
-        table.testgrid {
-            border-collapse: collapse;
-            border: 1px solid #CCB;
-            width: 95%;
-        }
-
-        table.testgrid td, table.testgrid th {
-            padding: 5px;
-            border: 1px solid #E0E0E0;
-        }
-
-        table.testgrid th {
-            background: #E5E5E5;
-            text-align: left;
-        }
-
-        input.invalid {
-            background: red;
-            color: #FDFDFD;
-        }
-    </style>
 
     <script>
         window.onload = function () {
@@ -109,58 +78,143 @@
     </div>
 </nav>
 <div id="map"></div>
-<div id="courseInfo"></div>
-<section id="tables">
+<section id="legend">
     <h1>Score Card</h1>
-    <div id="addP"><a onclick="addRow()">Add Player</a></div>
-    <div class="row">
-        <div class="col s12 m6">
-            <div class="card blue-grey darken-1">
-                <div class="card-content white-text">
-                    <span class="card-title">Legend</span>
-                    <table>
-                        <th></th>
-                        <th>Hole 1</th>
-                        <th>Hole 2</th>
-                        <th>Hole 3</th>
-                        <th>Hole 4</th>
-                        <th>Hole 5</th>
-                        <th>Hole 6</th>
-                        <th>Hole 7</th>
-                        <th>Hole 8</th>
-                        <th>Hole 9</th>
-                        <th class="hide hole10">Hole 10</th>
-                        <th class="hide hole11">Hole 11</th>
-                        <th class="hide hole12">Hole 12</th>
-                        <th class="hide hole13">Hole 13</th>
-                        <th class="hide hole14">Hole 14</th>
-                        <th class="hide hole15">Hole 15</th>
-                        <th class="hide hole16">Hole 16</th>
-                        <th class="hide hole17">Hole 17</th>
-                        <th class="hide hole18">Hole 18</th>
-                        <tr><td>Par</td></tr>
-                        <tr><td>Yard 1</td></tr>
-                        <tr><td>Yard 2</td></tr>
-                        <tr><td>Yard 3</td></tr>
-                        <tr><td>Yard 4</td></tr>
-                    </table>
-                </div>
+    <ul class="collapsible popout" data-collapsible="accordion">
+        <li><div class="collapsible-header"><i class="material-icons">filter_drama</i>Legend</div>
+            <div class="collapsible-body addStyle">
+                <table>
+                <th></th>
+                <th>Hole 1</th>
+                <th>Hole 2</th>
+                <th>Hole 3</th>
+                <th>Hole 4</th>
+                <th>Hole 5</th>
+                <th>Hole 6</th>
+                <th>Hole 7</th>
+                <th>Hole 8</th>
+                <th>Hole 9</th>
+                <th class="hide hole10">Hole 10</th>
+                <th class="hide hole11">Hole 11</th>
+                <th class="hide hole12">Hole 12</th>
+                <th class="hide hole13">Hole 13</th>
+                <th class="hide hole14">Hole 14</th>
+                <th class="hide hole15">Hole 15</th>
+                <th class="hide hole16">Hole 16</th>
+                <th class="hide hole17">Hole 17</th>
+                <th class="hide hole18">Hole 18</th>
+                <tr>
+                    <td class ="par">Par</td>
+                    <td class="hole1" id="par1"></td>
+                    <td class="hole2" id="par2"></td>
+                    <td class="hole3" id="par3"></td>
+                    <td class="hole4" id="par4"></td>
+                    <td class="hole5" id="par5"></td>
+                    <td class="hole6" id="par6"></td>
+                    <td class="hole7" id="par7"></td>
+                    <td class="hole8" id="par8"></td>
+                    <td class="hole9" id="par9"></td>
+                    <td class="hole10 hide" id="par10"></td>
+                    <td class="hole11 hide" id="par11"></td>
+                    <td class="hole12 hide" id="par12"></td>
+                    <td class="hole13 hide" id="par13"></td>
+                    <td class="hole14 hide" id="par14"></td>
+                    <td class="hole15 hide" id="par15"></td>
+                    <td class="hole16 hide" id="par16"></td>
+                    <td class="hole17 hide" id="par17"></td>
+                    <td class="hole18 hide" id="par18"></td>
+
+                </tr>
+                <tr>
+                    <td class="men hide" id="lmens">Men's</td>
+                    <td class="hole1" id="menhole1"></td>
+                    <td class="hole2" id="menhole2"></td>
+                    <td class="hole3" id="menhole3"></td>
+                    <td class="hole4" id="menhole4"></td>
+                    <td class="hole5" id="menhole5"></td>
+                    <td class="hole6" id="menhole6"></td>
+                    <td class="hole7" id="menhole7"></td>
+                    <td class="hole8" id="menhole8"></td>
+                    <td class="hole9" id="menhole9"></td>
+                    <td class="hole10 hide" id="menhole10"></td>
+                    <td class="hole11 hide" id="menhole11"></td>
+                    <td class="hole12 hide" id="menhole12"></td>
+                    <td class="hole13 hide" id="menhole13"></td>
+                    <td class="hole14 hide" id="menhole14"></td>
+                    <td class="hole15 hide" id="menhole15"></td>
+                    <td class="hole16 hide" id="menhole16"></td>
+                    <td class="hole17 hide" id="menhole17"></td>
+                    <td class="hole18 hide" id="menhole18"></td>
+                </tr>
+                <tr>
+                    <td class="women hide">Women's</td>
+                    <td class="hole1" id="womenhole1"></td>
+                    <td class="hole2" id="womenhole2"></td>
+                    <td class="hole3" id="womenhole3"></td>
+                    <td class="hole4" id="womenhole4"></td>
+                    <td class="hole5" id="womenhole5"></td>
+                    <td class="hole6" id="womenhole6"></td>
+                    <td class="hole7" id="womenhole7"></td>
+                    <td class="hole8" id="womenhole8"></td>
+                    <td class="hole9" id="womenhole9"></td>
+                    <td class="hole10 hide" id="womenhole10"></td>
+                    <td class="hole11 hide" id="womenhole11"></td>
+                    <td class="hole12 hide" id="womenhole12"></td>
+                    <td class="hole13 hide" id="womenhole13"></td>
+                    <td class="hole14 hide" id="womenhole14"></td>
+                    <td class="hole15 hide" id="womenhole15"></td>
+                    <td class="hole16 hide" id="womenhole16"></td>
+                    <td class="hole17 hide" id="womenhole17"></td>
+                    <td class="hole18 hide" id="womenhole18"></td>
+                </tr>
+                <tr>
+                    <td class="champion hide">Champion</td>
+                    <td class="hole1" id="champhole1"></td>
+                    <td class="hole2" id="champhole2"></td>
+                    <td class="hole3" id="champhole3"></td>
+                    <td class="hole4" id="champhole4"></td>
+                    <td class="hole5" id="champhole5"></td>
+                    <td class="hole6" id="champhole6"></td>
+                    <td class="hole7" id="champhole7"></td>
+                    <td class="hole8" id="champhole8"></td>
+                    <td class="hole9" id="champhole9"></td>
+                    <td class="hole10 hide" id="champhole10"></td>
+                    <td class="hole11 hide" id="champhole11"></td>
+                    <td class="hole12 hide" id="champhole12"></td>
+                    <td class="hole13 hide" id="champhole13"></td>
+                    <td class="hole14 hide" id="champhole14"></td>
+                    <td class="hole15 hide" id="champhole15"></td>
+                    <td class="hole16 hide" id="champhole16"></td>
+                    <td class="hole17 hide" id="champhole17"></td>
+                    <td class="hole18 hide" id="champhole18"></td>
+                </tr>
+                <tr>
+                    <td class="professional hide">Professional</td>
+                    <td class="hole1" id="profhole1"></td>
+                    <td class="hole2" id="profhole2"></td>
+                    <td class="hole3" id="profhole3"></td>
+                    <td class="hole4" id="profhole4"></td>
+                    <td class="hole5" id="profhole5"></td>
+                    <td class="hole6" id="profhole6"></td>
+                    <td class="hole7" id="profhole7"></td>
+                    <td class="hole8" id="profhole8"></td>
+                    <td class="hole9" id="profhole9"></td>
+                    <td class="hole10 hide" id="profhole10"></td>
+                    <td class="hole11 hide" id="profhole11"></td>
+                    <td class="hole12 hide" id="profhole12"></td>
+                    <td class="hole13 hide" id="profhole13"></td>
+                    <td class="hole14 hide" id="profhole14"></td>
+                    <td class="hole15 hide" id="profhole15"></td>
+                    <td class="hole16 hide" id="profhole16"></td>
+                    <td class="hole17 hide" id="profhole17"></td>
+                    <td class="hole18 hide" id="profhole18"></td>
+                </tr>
+            </table>
             </div>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-image waves-effect waves-block waves-light">
-            <img class="activator" src="img/golf-stock.jpg">
-        </div>
-        <div class="card-content">
-            <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
-            <p><a href="#">This is a link</a></p>
-        </div>
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
-            <p>Here is some more information about this product that is only revealed once clicked on.</p>
-        </div>
-    </div>
+        </li>
+        </ul>
+</section>
+<section id="tables">
     <table id="playersTable" class="testgrid">
         <tr id="pHeading">
             <th class="playersName">Name</th>
@@ -186,99 +240,100 @@
             <th class="totals18 hide">Totals</th>
 
         </tr>
-        <tr id="R1">
-            <td class="playersName" id="mike">Mike Teagle</td>
-            <td class="hole1"></td>
-            <td class="hole2"></td>
-            <td class="hole3"></td>
-            <td class="hole4"></td>
-            <td class="hole5"></td>
-            <td class="hole6"></td>
-            <td class="hole7"></td>
-            <td class="hole8"></td>
-            <td class="hole9"></td>
-            <td class="totals9"></td>
-            <td class="hide hole10"></td>
-            <td class="hide hole11"></td>
-            <td class="hide hole12"></td>
-            <td class="hide hole13"></td>
-            <td class="hide hole14"></td>
-            <td class="hide hole15"></td>
-            <td class="hide hole16"></td>
-            <td class="hide hole17"></td>
-            <td class="hide hole18"></td>
-            <td class="totals18 hide"></td>
+        <tr id="pr1">
+            <td class="playersName" id="p1" contenteditable>Mike Teagle</td>
+            <td id = "p1h1" class="hole1"></td>
+            <td id = "p1h2" class="hole2"></td>
+            <td id = "p1h3" class="hole3"></td>
+            <td id = "p1h4" class="hole4"></td>
+            <td id = "p1h5" class="hole5"></td>
+            <td id = "p1h6" class="hole6"></td>
+            <td id = "p1h7" class="hole7"></td>
+            <td id = "p1h8" class="hole8"></td>
+            <td id = "p1h9" class="hole9"></td>
+            <td id = "p1totals9" class="totals9"></td>
+            <td id = "p1h10" class="hide hole10"></td>
+            <td id = "p1h11" class="hide hole11"></td>
+            <td id = "p1h12" class="hide hole12"></td>
+            <td id = "p1h13" class="hide hole13"></td>
+            <td id = "p1h14" class="hide hole14"></td>
+            <td id = "p1h15" class="hide hole15"></td>
+            <td id = "p1h16" class="hide hole16"></td>
+            <td id = "p1h17" class="hide hole17"></td>
+            <td id = "p1h18" class="hide hole18"></td>
+            <td id = "p1totals18" class="totals18 hide"></td>
         </tr>
-        <tr id="R2">
-            <td class="playersName">Jen Teagle</td>
-            <td class="hole1"></td>
-            <td class="hole2"></td>
-            <td class="hole3"></td>
-            <td class="hole4"></td>
-            <td class="hole5"></td>
-            <td class="hole6"></td>
-            <td class="hole7"></td>
-            <td class="hole8"></td>
-            <td class="hole9"></td>
-            <td class="totals9"></td>
-            <td class="hide hole10"></td>
-            <td class="hide hole11"></td>
-            <td class="hide hole12"></td>
-            <td class="hide hole13"></td>
-            <td class="hide hole14"></td>
-            <td class="hide hole15"></td>
-            <td class="hide hole16"></td>
-            <td class="hide hole17"></td>
-            <td class="hide hole18"></td>
-            <td class="totals18 hide"></td>
+        <tr id="pr2">
+            <td class="playersName" id="p2">Jen Teagle</td>
+            <td id="p2h1" class="hole1"></td>
+            <td id="p2h2" class="hole2"></td>
+            <td id="p2h3" class="hole3"></td>
+            <td id="p2h4" class="hole4"></td>
+            <td id="p2h5" class="hole5"></td>
+            <td id="p2h6" class="hole6"></td>
+            <td id="p2h7" class="hole7"></td>
+            <td id="p2h8" class="hole8"></td>
+            <td id="p2h9" class="hole9"></td>
+            <td id ="p2totals9" class="totals9"></td>
+            <td id ="p2h10" class="hide hole10"></td>
+            <td id="p2h11"class="hide hole11"></td>
+            <td id="p2h12" class="hide hole12"></td>
+            <td id="p2h13" class="hide hole13"></td>
+            <td id="p2h14" class="hide hole14"></td>
+            <td id="p2h15" class="hide hole15"></td>
+            <td id="p2h16" class="hide hole16"></td>
+            <td id="p2h17" class="hide hole17"></td>
+            <td id="p2h18" class="hide hole18"></td>
+            <td id="p2totals18" class="totals18 hide"></td>
         </tr>
-        <tr id="R3">
-            <td class="playersName">Madison Teagle</td>
-            <td class="hole1"></td>
-            <td class="hole2"></td>
-            <td class="hole3"></td>
-            <td class="hole4"></td>
-            <td class="hole5"></td>
-            <td class="hole6"></td>
-            <td class="hole7"></td>
-            <td class="hole8"></td>
-            <td class="hole9"></td>
-            <td class="totals9"></td>
-            <td class="hide hole10"></td>
-            <td class="hide hole11"></td>
-            <td class="hide hole12"></td>
-            <td class="hide hole13"></td>
-            <td class="hide hole14"></td>
-            <td class="hide hole15"></td>
-            <td class="hide hole16"></td>
-            <td class="hide hole17"></td>
-            <td class="hide hole18"></td>
-            <td class="totals18 hide"></td>
+        <tr id="pr3">
+            <td class="playersName" id="p3">Madison Teagle</td>
+            <td class="hole1" id="p3h1"></td>
+            <td class="hole2" id="p3h2"></td>
+            <td class="hole3" id="p3h3"></td>
+            <td class="hole4" id="p3h4"></td>
+            <td class="hole5" id="p3h5"></td>
+            <td class="hole6" id="p3h6"></td>
+            <td class="hole7" id="p3h7"></td>
+            <td class="hole8" id="p3h8"></td>
+            <td class="hole9" id="p3h9"></td>
+            <td class="totals9" id="p3totals9"></td>
+            <td class="hide hole10" id="p3h10"></td>
+            <td class="hide hole11" id="p3h11"></td>
+            <td class="hide hole12" id="p3h12"></td>
+            <td class="hide hole13" id="p3h13"></td>
+            <td class="hide hole14" id="p3h14"></td>
+            <td class="hide hole15" id="p3h15"></td>
+            <td class="hide hole16" id="p3h16"></td>
+            <td class="hide hole17" id="p3h17"></td>
+            <td class="hide hole18" id="p3h18"></td>
+            <td class="totals18 hide" id="p3totals18"></td>
         </tr>
-        <tr id="R4">
-            <td class="playersName">Britain Teagle</td>
-            <td class="hole1"></td>
-            <td class="hole2"></td>
-            <td class="hole3"></td>
-            <td class="hole4"></td>
-            <td class="hole5"></td>
-            <td class="hole6"></td>
-            <td class="hole7"></td>
-            <td class="hole8"></td>
-            <td class="hole9"></td>
-            <td class="totals9"></td>
-            <td class="hide hole10"></td>
-            <td class="hide hole11"></td>
-            <td class="hide hole12"></td>
-            <td class="hide hole13"></td>
-            <td class="hide hole14"></td>
-            <td class="hide hole15"></td>
-            <td class="hide hole16"></td>
-            <td class="hide hole17"></td>
-            <td class="hide hole18"></td>
-            <td class="totals18 hide"></td>
+        <tr id="pr4">
+            <td class="playersName" id="p4">Britain Teagle</td>
+            <td class="hole1" id="p4h1"></td>
+            <td class="hole2" id="p4h2"></td>
+            <td class="hole3" id="p4h3"></td>
+            <td class="hole4" id="p4h4"></td>
+            <td class="hole5" id="p4h5"></td>
+            <td class="hole6" id="p4h6"></td>
+            <td class="hole7" id="p4h7"></td>
+            <td class="hole8" id="p4h8"></td>
+            <td class="hole9" id="p4h9"></td>
+            <td class="totals9" id="p4totals9"></td>
+            <td class="hide hole10" id="p4h10"></td>
+            <td class="hide hole11" id="p4h11"></td>
+            <td class="hide hole12" id="p4h12"></td>
+            <td class="hide hole13" id="p4h13"></td>
+            <td class="hide hole14" id="p4h14"></td>
+            <td class="hide hole15" id="p4h15"></td>
+            <td class="hide hole16" id="p4h16"></td>
+            <td class="hide hole17" id="p4h17"></td>
+            <td class="hide hole18" id="p4h18"></td>
+            <td class="totals18 hide" id="p4totals18"></td>
         </tr>
     </table>
+    <div id="addP"><a onclick="addRow(); updateTotals()">Add Player</a></div>
 </section>
 <div id="boxes">
     <div id="dialog" class="window">
@@ -310,6 +365,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.1/math.min.js"></script>
 <script>
 
 
