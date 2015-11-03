@@ -9,9 +9,7 @@ var map;
 var markers = [];
 var rindex = 4;
 var hindex = 1;
-var playerRow = 4;
-var prRows = 5;
-var alertTimerId = 0;
+var pindex = 5;
 var accessToken = getUrlVars().access_token;
 var swingBySwing = "https://api.swingbyswing.com/v2/oauth/authorize?scope=read&redirect_uri=" + encodeURI(redirectURI) + "&response_type=token&client_id=" + clientID;
 if (accessToken == null) {
@@ -137,43 +135,6 @@ function deleteMarkers() {
     clearMarkers();
     markers = [];
 }
-//function addRow(holecount, tee) {
-//    var holed = document.getElementById('holecount').value;
-//    editableGrid.append(editableGrid.data.length, { 'Author': 'ME' }, true);
-//    $('.editablegrid-name').addClass('playersName');
-//    $('.editablegrid-totals9').addClass('totals9');
-//    //document.getElementById("#"+playerRow).id="pr"+prRows;
-//    //prRows++;
-//    //playerRow++;
-//
-//    if (holed == 18) {
-//        $('.editablegrid-totals9').addClass('totals9 hide').addId();
-//        $('.editablegrid-totals18').addClass('totals18 show-cell');
-//        for (var i = 1; i <= 9; i++) {
-//            $('.editablegrid-hole'+ hindex).addClass('show-cell hole'+ hindex);
-//            hindex++;
-//        }
-//        for (var i = 9; i < 19; i++) {
-//            $('.editablegrid-hole'+ hindex).addClass('show-cell hole' + hindex);
-//            hindex++;
-//        }
-//    }
-//
-//    if (holed == 9 || holed == undefined || holed == '') {
-//        $('.editablegrid-totals18').addClass('totals18 hide');
-//        $('.editablegrid-totals9').removeClass('hide').addClass('show-cell');
-//        for (var i = 1; i <= 9; i++) {
-//            $('.editablegrid-hole'+ hindex).addClass('hole'+ hindex);
-//            hindex++;
-//        }
-//        for (var i = 9; i < 19; i++) {
-//            $('.editablegrid-hole'+ hindex).addClass('hide hole' + hindex);
-//            hindex++;
-//        }
-//    }
-//    rindex++;
-//    hindex = 1;
-//}
 function settings() {
     var id = '#dialog';
 
@@ -252,44 +213,84 @@ function removeClass(holecount, tee) {
     addHoles(holecount);
     addTeeBox(holecount, tee);
 }
-var pArray = [];
-function totalIt(id) {
-    var reindex = /^[^\d]*(\d+)/.exec(id);
-    var ri = reindex[1];
-    console.log(ri);
-    var pNum = Number($('#'+id).text());
-    pArray.push(pNum);
+
+function getPlayer(ri, pNum, hole) {
 
 }
+var pArray = [];
+var holeindex = 1;
+function totalIt(id) {
+
+    var reindex = /^[^\d]*(\d+)/.exec(id);
+    var ri = reindex[1];
+    var eindex = /(\d+)(?!.*\d)/.exec(id);
+    var ei = eindex[1];
+    var pNum = Number($('#'+id).text());
+    var TableData = new Array();
+
+    $('#playersTable tr').each(function(row, tr){
+        TableData[row]={
+            "name" : $(tr).find('td:eq(0)').text()
+            , "hole1" :$(tr).find('td:eq(1)').text()
+            , "hole2" : $(tr).find('td:eq(2)').text()
+            , "hole3" : $(tr).find('td:eq(3)').text()
+            , "hole4" : $(tr).find('td:eq(4)').text()
+            , "hole5" : $(tr).find('td:eq(5)').text()
+            , "hole6" : $(tr).find('td:eq(6)').text()
+            , "hole7" : $(tr).find('td:eq(7)').text()
+            , "hole8" : $(tr).find('td:eq(8)').text()
+            , "hole9" : $(tr).find('td:eq(9)').text()
+            , "hole10" : $(tr).find('td:eq(11)').text()
+            , "hole11" : $(tr).find('td:eq(12)').text()
+            , "hole12" : $(tr).find('td:eq(13)').text()
+            , "hole13" : $(tr).find('td:eq(14)').text()
+            , "hole14" : $(tr).find('td:eq(15)').text()
+            , "hole15" : $(tr).find('td:eq(16)').text()
+            , "hole16" : $(tr).find('td:eq(17)').text()
+            , "hole17" : $(tr).find('td:eq(18)').text()
+            , "hole18" : $(tr).find('td:eq(19)').text()
+        }
+    });
+    TableData.shift();  // first row is the table header - so remove
+    console.log(TableData);
+    //var player = function() {
+    //    this.name = "p"+ri+"Name";
+    //    this.hole1 = pNum;
+    //}
+    //getPlayer(ri, pNum, ei);
+}
+
 function updateTotals() {
     var rowLength = $("#R1" ).children().length;
     console.log(rowLength);
 }
-var pindex ="5";
-function addRow () {
-    var holed = document.getElementById('holecount').value;
-    var newplayer = "<tr id=player" + pindex + "></tr>";
-    $('#playersTable').append(newplayer);
-    if (holed == 9 || holed == undefined || holed == '') {
-        for (var i = 1; i <= 10; i++) {
+
+        function addRow () {
+            var holed = document.getElementById('holecount').value;
+            var newplayer = "<tr id=player" + pindex + "></tr>";
+            $('#playersTable').append(newplayer);
+            var newname = "<td id=p" + pindex +"Name class='nameheading' contenteditable='true'>New Player</td>";
+            $('#player'+ pindex).append(newname);
+            if (holed == 9 || holed == undefined || holed == '') {
+        for (var i = 1; i < 10; i++) {
             var new9td = "<td id=p" + pindex + "h" + i +" class=hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
             $('#player'+ pindex).append(new9td);
         }
         $('#player'+ pindex).append("<td id=p" + pindex + "totals9 class='show-cell totals9' contenteditable='false'></td>");
-        for (var i = 10; i <= 18; i++) {
+        for (var i = 10; i < 19; i++) {
             var new9td = "<td id=p" + pindex + "h" + i +" class=hide hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
             $('#player'+ pindex).append(new9td);
         }
         $('#player'+ pindex).append("<td id=p" + pindex + "totals18 class='totals18 hide' contenteditable='false'></td>");
     }
     if (holed == 18) {
-        for (var i = 1; i <= 10; i++) {
+        for (var i = 1; i < 10; i++) {
             var new9td = "<td id=p" + pindex + "h" + i +" class=hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
             $('#player'+ pindex).append(new9td);
         }
         $('#player'+ pindex).append("<td id=p" + pindex + "totals9 class='hide totals9' contenteditable='false'></td>");
-        for (var i = 10; i <= 18; i++) {
-            var new9td = "<td id=p" + pindex + "h" + i +" class=show-cell hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
+        for (var i = 10; i < 19; i++) {
+            var new9td = "<td id=p" + pindex + "h" + i +" class='hole" + i + " show-cell' contenteditable='true' onblur='totalIt(this.id)'></td>";
             $('#player'+ pindex).append(new9td);
         }
         $('#player'+ pindex).append("<td id=p" + pindex + "totals18 class='totals18 show-cell' contenteditable='false'></td>");
