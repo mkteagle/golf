@@ -11,7 +11,7 @@
 <body>
 <nav>
 <div class="nav-wrapper">
-    <a href="#" class="brand-logo logos">Golf Score Card</a>
+    <a href="#" class="brand-logo logos" id="courseName">Golf Score Card</a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
         <li><a href="#" onclick="settings()">Settings</a></li>
@@ -27,7 +27,7 @@
     <ul class="collapsible popout" data-collapsible="accordion">
         <li><div class="collapsible-header"><i class="material-icons">filter_drama</i>Legend</div>
             <div class="collapsible-body addStyle">
-                <table>
+                <table id="legendTable">
                     <th></th>
                     <th>Hole 1</th>
                     <th>Hole 2</th>
@@ -49,28 +49,28 @@
                     <th class="hide hole18">Hole 18</th>
                     <tr class="par">
                         <td class ="par">Par</td>
-                        <td class="hole1" id="par1"></td>
-                        <td class="hole2" id="par2"></td>
-                        <td class="hole3" id="par3"></td>
-                        <td class="hole4" id="par4"></td>
-                        <td class="hole5" id="par5"></td>
-                        <td class="hole6" id="par6"></td>
-                        <td class="hole7" id="par7"></td>
-                        <td class="hole8" id="par8"></td>
-                        <td class="hole9" id="par9"></td>
-                        <td class="hole10 hide" id="par10"></td>
-                        <td class="hole11 hide" id="par11"></td>
-                        <td class="hole12 hide" id="par12"></td>
-                        <td class="hole13 hide" id="par13"></td>
-                        <td class="hole14 hide" id="par14"></td>
-                        <td class="hole15 hide" id="par15"></td>
-                        <td class="hole16 hide" id="par16"></td>
+                        <td class="hole1" id="par1">3</td>
+                        <td class="hole2" id="par2">3</td>
+                        <td class="hole3" id="par3">4</td>
+                        <td class="hole4" id="par4">5</td>
+                        <td class="hole5" id="par5">3</td>
+                        <td class="hole6" id="par6">2</td>
+                        <td class="hole7" id="par7">1</td>
+                        <td class="hole8" id="par8">3</td>
+                        <td class="hole9" id="par9">4</td>
+                        <td class="hole10 hide" id="par10">5</td>
+                        <td class="hole11 hide" id="par11">5</td>
+                        <td class="hole12 hide" id="par12">4</td>
+                        <td class="hole13 hide" id="par13">3</td>
+                        <td class="hole14 hide" id="par14">2</td>
+                        <td class="hole15 hide" id="par15">1</td>
+                        <td class="hole16 hide" id="par16">5</td>
                         <td class="hole17 hide" id="par17"></td>
                         <td class="hole18 hide" id="par18"></td>
 
                     </tr>
                     <tr class="men hide">
-                        <td class="men hide" id="lmens">Men's</td>
+                        <td class="menhole" id="lmens">Men's</td>
                         <td class="hole1" id="menhole1"></td>
                         <td class="hole2" id="menhole2"></td>
                         <td class="hole3" id="menhole3"></td>
@@ -91,7 +91,7 @@
                         <td class="hole18 hide" id="menhole18"></td>
                     </tr>
                     <tr class="women hide">
-                        <td class="women hide" id="lwomens">Women's</td>
+                        <td class="womenhole" id="lwomens">Women's</td>
                         <td class="hole1" id="womenhole1"></td>
                         <td class="hole2" id="womenhole2"></td>
                         <td class="hole3" id="womenhole3"></td>
@@ -112,7 +112,7 @@
                         <td class="hole18 hide" id="womenhole18"></td>
                     </tr>
                     <tr class="champion hide">
-                        <td class="champion hide" id="lchampion">Champion</td>
+                        <td class="championhole" id="lchampion">Champion</td>
                         <td class="hole1" id="champhole1"></td>
                         <td class="hole2" id="champhole2"></td>
                         <td class="hole3" id="champhole3"></td>
@@ -133,7 +133,7 @@
                         <td class="hole18 hide" id="champhole18"></td>
                     </tr>
                     <tr class="professional hide">
-                        <td class="professional hide" id="lproffesional">Professional</td>
+                        <td class="professionalhole" id="lproffesional">Professional</td>
                         <td class="hole1" id="profhole1"></td>
                         <td class="hole2" id="profhole2"></td>
                         <td class="hole3" id="profhole3"></td>
@@ -297,6 +297,7 @@
                 </select>
                 <input type="submit" class="close agree" value="Save Settings" onclick="submitSettings()">
                 <button class="close agree" onclick="deleteMarkers()">Clear Markers</button>
+                <button class="close email" onclick="emailScores()">Email Scores</button>
             </form>
         </div>
     </div>
@@ -308,10 +309,7 @@
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/2.4.1/math.min.js"></script>
-<script>
-
-
-</script>
+<script src="js/stacktable.js" type="text/javascript"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzseJI9tag50xHhEFstcLwOufPGBYqZnk&signed_in=true&callback=initMap"></script>
 <script src="js/map.js"></script>

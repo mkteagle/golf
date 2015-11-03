@@ -93,6 +93,9 @@ input[type=submit] {
 .show-cell {
     display: table-cell;
 }
+.show-row {
+    display: table-row;
+}
 #playersTable td {
     height: 40px;
 }

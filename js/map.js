@@ -7,8 +7,6 @@ var clientID = "a88e7b45-fa45-4d05-829e-975681adc580";
 var model;
 var map;
 var markers = [];
-var rindex = 4;
-var hindex = 1;
 var pindex = 5;
 var accessToken = getUrlVars().access_token;
 var swingBySwing = "https://api.swingbyswing.com/v2/oauth/authorize?scope=read&redirect_uri=" + encodeURI(redirectURI) + "&response_type=token&client_id=" + clientID;
@@ -54,9 +52,10 @@ function initMap(location) {
         map: map,
         title: "Old St. Andrews"
     });
+    $('#courseName').append(" for " + model.course.name);
+    //$('#legendTable').stacktable();
 }
-
-function submitSettings(holecount, tee) {
+function submitSettings() {
     var tee = document.getElementById("tee").value;
     var holecount = document.getElementById("holecount").value;
     removeTees(tee);
@@ -172,128 +171,78 @@ $(document).ready(settings());
 // need a function to addClass to
 function removeTees(tee) {
     if (tee == "women") {
-        $('.women').removeClass('hide').addClass('show-cell');
+        $('.women').removeClass('hide').addClass('show-row');
     }
     if (tee == "men") {
-        $('.men').removeClass('hide').addClass('show-cell');
+        $('.men').removeClass('hide').addClass('show-row');
     }
     if (tee == "champion") {
-        $('.champion').removeClass('hide').addClass('show-cell');
+        $('.champion').removeClass('hide').addClass('show-row');
     }
     if (tee == "professional") {
-        $('.professional').removeClass('hide').addClass('show-cell');
+        $('.professional').removeClass('hide').addClass('show-row');
     }
 }
 function addClass() {
     $('.totals9').addClass('hide');
-    $('.hole10').removeClass('hide').addClass('show-cell');
-    $('.hole11').removeClass('hide').addClass('show-cell');
-    $('.hole12').removeClass('hide').addClass('show-cell');
-    $('.hole13').removeClass('hide').addClass('show-cell');
-    $('.hole14').removeClass('hide').addClass('show-cell');
-    $('.hole15').removeClass('hide').addClass('show-cell');
-    $('.hole16').removeClass('hide').addClass('show-cell');
-    $('.hole17').removeClass('hide').addClass('show-cell');
-    $('.hole18').removeClass('hide').addClass('show-cell');
+    for (var i = 10; i != 19; i++) {
+        $('.hole' + i).removeClass('hide').addClass('show-cell');
+    }
     $('.totals18').removeClass('hide').addClass('show-cell');
 }
 function removeClass(holecount, tee) {
     $('.totals9').removeClass('hide').addClass('show-cell');
-    $('.hole10').removeClass('show-cell').addClass('hide');
-    $('.hole11').removeClass('show-cell').addClass('hide');
-    $('.hole12').removeClass('show-cell').addClass('hide');
-    $('.hole13').removeClass('show-cell').addClass('hide');
-    $('.hole14').removeClass('show-cell').addClass('hide');
-    $('.hole15').removeClass('show-cell').addClass('hide');
-    $('.hole16').removeClass('show-cell').addClass('hide');
-    $('.hole17').removeClass('show-cell').addClass('hide');
-    $('.hole18').removeClass('show-cell').addClass('hide');
+    for (var i = 10; i != 19; i++) {
+        $('hole' + i).removeClass('show-cell').addClass('hide');
+    }
     $('.totals18').removeClass('show-cell').addClass('hide');
     deleteMarkers();
     addHoles(holecount);
     addTeeBox(holecount, tee);
 }
 
-function getPlayer(ri, pNum, hole) {
-
-}
-var pArray = [];
-var holeindex = 1;
 function totalIt(id) {
 
     var reindex = /^[^\d]*(\d+)/.exec(id);
     var ri = reindex[1];
-    var eindex = /(\d+)(?!.*\d)/.exec(id);
-    var ei = eindex[1];
-    var pNum = Number($('#'+id).text());
-    var TableData = new Array();
-
-    $('#playersTable tr').each(function(row, tr){
-        TableData[row]={
-            "name" : $(tr).find('td:eq(0)').text()
-            , "hole1" :$(tr).find('td:eq(1)').text()
-            , "hole2" : $(tr).find('td:eq(2)').text()
-            , "hole3" : $(tr).find('td:eq(3)').text()
-            , "hole4" : $(tr).find('td:eq(4)').text()
-            , "hole5" : $(tr).find('td:eq(5)').text()
-            , "hole6" : $(tr).find('td:eq(6)').text()
-            , "hole7" : $(tr).find('td:eq(7)').text()
-            , "hole8" : $(tr).find('td:eq(8)').text()
-            , "hole9" : $(tr).find('td:eq(9)').text()
-            , "hole10" : $(tr).find('td:eq(11)').text()
-            , "hole11" : $(tr).find('td:eq(12)').text()
-            , "hole12" : $(tr).find('td:eq(13)').text()
-            , "hole13" : $(tr).find('td:eq(14)').text()
-            , "hole14" : $(tr).find('td:eq(15)').text()
-            , "hole15" : $(tr).find('td:eq(16)').text()
-            , "hole16" : $(tr).find('td:eq(17)').text()
-            , "hole17" : $(tr).find('td:eq(18)').text()
-            , "hole18" : $(tr).find('td:eq(19)').text()
-        }
-    });
-    TableData.shift();  // first row is the table header - so remove
-    console.log(TableData);
-    //var player = function() {
-    //    this.name = "p"+ri+"Name";
-    //    this.hole1 = pNum;
-    //}
-    //getPlayer(ri, pNum, ei);
+    //var eindex = /(\d+)(?!.*\d)/.exec(id);
+    //var ei = eindex[1];
+    var sum = 0;
+    for (var i = 1; i != 19; i++) {
+        sum += Number($('#p' + ri + 'h' + i).text());
+    }
+    $('#p' + ri + 'totals9').text(sum);
+    $('#p' + ri + 'totals18').text(sum);
 }
-
-function updateTotals() {
-    var rowLength = $("#R1" ).children().length;
-    console.log(rowLength);
-}
-
-        function addRow () {
-            var holed = document.getElementById('holecount').value;
-            var newplayer = "<tr id=player" + pindex + "></tr>";
-            $('#playersTable').append(newplayer);
-            var newname = "<td id=p" + pindex +"Name class='nameheading' contenteditable='true'>New Player</td>";
-            $('#player'+ pindex).append(newname);
-            if (holed == 9 || holed == undefined || holed == '') {
+function addRow() {
+    var holed = document.getElementById('holecount').value;
+    var newplayer = "<tr id=player" + pindex + "></tr>";
+    $('#playersTable').append(newplayer);
+    var newname = "<td id=p" + pindex + "Name class='nameheading' contenteditable='true' placeholder='New Player'></td>";
+    $('#player' + pindex).append(newname);
+    if (holed == 9 || holed == undefined || holed == '') {
         for (var i = 1; i < 10; i++) {
-            var new9td = "<td id=p" + pindex + "h" + i +" class=hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
-            $('#player'+ pindex).append(new9td);
+            var new9td = "<td id=p" + pindex + "h" + i + " class=hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
+            $('#player' + pindex).append(new9td);
         }
-        $('#player'+ pindex).append("<td id=p" + pindex + "totals9 class='show-cell totals9' contenteditable='false'></td>");
+        $('#player' + pindex).append("<td id=p" + pindex + "totals9 class='show-cell totals9' contenteditable='false'></td>");
         for (var i = 10; i < 19; i++) {
-            var new9td = "<td id=p" + pindex + "h" + i +" class=hide hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
-            $('#player'+ pindex).append(new9td);
+            var new9td = "<td id=p" + pindex + "h" + i + " class=hide hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
+            $('#player' + pindex).append(new9td);
         }
-        $('#player'+ pindex).append("<td id=p" + pindex + "totals18 class='totals18 hide' contenteditable='false'></td>");
+        $('#player' + pindex).append("<td id=p" + pindex + "totals18 class='totals18 hide' contenteditable='false'></td>");
     }
     if (holed == 18) {
         for (var i = 1; i < 10; i++) {
-            var new9td = "<td id=p" + pindex + "h" + i +" class=hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
-            $('#player'+ pindex).append(new9td);
+            var new9td = "<td id=p" + pindex + "h" + i + " class=hole" + i + " contenteditable='true' onblur='totalIt(this.id)'></td>";
+            $('#player' + pindex).append(new9td);
         }
-        $('#player'+ pindex).append("<td id=p" + pindex + "totals9 class='hide totals9' contenteditable='false'></td>");
+        $('#player' + pindex).append("<td id=p" + pindex + "totals9 class='hide totals9' contenteditable='false'></td>");
         for (var i = 10; i < 19; i++) {
-            var new9td = "<td id=p" + pindex + "h" + i +" class='hole" + i + " show-cell' contenteditable='true' onblur='totalIt(this.id)'></td>";
-            $('#player'+ pindex).append(new9td);
+            var new9td = "<td id=p" + pindex + "h" + i + " class='hole" + i + " show-cell' contenteditable='true' onblur='totalIt(this.id)'></td>";
+            $('#player' + pindex).append(new9td);
         }
-        $('#player'+ pindex).append("<td id=p" + pindex + "totals18 class='totals18 show-cell' contenteditable='false'></td>");
+        $('#player' + pindex).append("<td id=p" + pindex + "totals18 class='totals18 show-cell' contenteditable='false'></td>");
     }
     pindex++;
 }
