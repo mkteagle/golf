@@ -44,7 +44,9 @@ function getCourse(courseId) {
 function initMap(location) {
     map = new google.maps.Map(document.getElementById('map'), {
         center: location,
-        zoom: 20
+        zoom: 18,
+        scrollwheel: false,
+        disableDefaultUI: true
     });
 
     var marker = new google.maps.Marker({
@@ -55,10 +57,6 @@ function initMap(location) {
     var id = document.getElementById("tee").value;
     $('#courseName').append(" for " + model.course.name);
     findPar();
-    for (var i = 1; i != 18; i++) {
-        loadYards(id, i);
-    }
-
     //$('#legendTable').stacktable();
 }
 function submitSettings() {
@@ -67,14 +65,45 @@ function submitSettings() {
     removeTees(tee);
     addHoles(holecount);
     addTeeBox(holecount, tee);
-    loadYards(tee, holecount);
+
     if (holecount == 18) {
         addClass(holecount);
     }
     if (holecount == 9) {
         removeClass(holecount, tee);
     }
+    for (var i = 0; i <= 17; i++) {
+        loadYards('professional', i);
+        loadYards('champion', i);
+        loadYards('women', i);
+        loadYards('men', i);
+        ui++;
+    }
+    //loadInandOut('out', 'totals', 18);
+    //loadInandOut('in', 'totals' , 9);
 }
+//function loadInandOut(id, holes, n) {
+//
+//    $('#' + id + holes + n).text();
+//}
+function findHoleCenter(id) {
+    var eindex = /(\d+)(?!.*\d)/.exec(id);
+    var ei = Number(eindex[1]) - 1;
+    var maplat = model.course.holes[ei].green_location.lat;
+    var maplong = model.course.holes[ei].green_location.lng;
+    var teelat = model.course.holes[ei].tee_boxes[0].location.lat;
+    var teelong = model.course.holes[ei].tee_boxes[0].location.lng;
+    var holelat = Number(maplat + teelat)/2;
+    console.log(holelat);
+    var holelong = Number(maplong + teelong)/2;
+    holesCenter(holelat, holelong);
+    console.log(holelong);
+}
+function holesCenter(lat, lng) {
+    map.setCenter(new google.maps.LatLng(lat, lng));
+    map.setZoom(17);
+}
+
 
 function addHoles(holecount) {
     for (var i = 0; i < holecount; i++) {
@@ -125,27 +154,29 @@ function findPar () {
         index++;
     }
 }
-function loadYards(id, index) {
-    var n, yards;
+var ui = 1;
+function loadYards(id, n) {
+    var yards, a;
+
     if (id == 'men') {
-        n = 3;
-        yards = model.course.holes[index].tee_boxes[n].yards;
-        $('#' + id + 'hole' + index).text(yards);
+        a = 3;
+        yards = model.course.holes[n].tee_boxes[a].yards;
+        $('#' + id + 'hole' + ui).text(yards);
     }
     if (id == 'women') {
-        n = 2;
-        yards = model.course.holes[index].tee_boxes[n].yards;
-        $('#' + id + 'hole' + index).text(yards);
+        a = 2;
+        yards = model.course.holes[n].tee_boxes[a].yards;
+        $('#' + id + 'hole' + ui).text(yards);
     }
     if (id == 'champion') {
-        n = 1;
-        yards = model.course.holes[index].tee_boxes[n].yards;
-        $('#' + id + 'hole' + index).text(yards);
+        a = 1;
+        yards = model.course.holes[n].tee_boxes[a].yards;
+        $('#' + id + 'hole' + ui).text(yards);
     }
     if (id == 'professional') {
-        n = 0;
-        yards = model.course.holes[index].tee_boxes[n].yards;
-        $('#' + id + 'hole' + index).text(yards);
+        a = 0;
+        yards = model.course.holes[n].tee_boxes[a].yards;
+        $('#' + id + 'hole' + ui).text(yards);
     }
 }
 function addHMarker(location) {
@@ -177,8 +208,6 @@ function deleteMarkers() {
 }
 function settings() {
     var id = '#dialog';
-
-
     var maskHeight = $(document).height();
     var maskWidth = $(window).width();
 
@@ -206,7 +235,6 @@ function settings() {
         $(this).hide();
         $('.window').hide();
     });
-
 }
 $(document).ready(settings());
 // need a function to addClass to
@@ -286,5 +314,10 @@ function addRow() {
         $('#player' + pindex).append("<td id=p" + pindex + "totals18 class='totals18 show-cell' contenteditable='false'></td>");
     }
     pindex++;
+}
+function deleteRow() {
+    var lastListItem = $("#playersTable").find("tr").last().attr("id");
+    console.log(lastListItem);
+    $('#' + lastListItem).remove();
 }
 

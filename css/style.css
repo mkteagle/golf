@@ -84,6 +84,9 @@ input[type=submit] {
 #addP {
     padding: 20px;
 }
+#removeP {
+    padding: 20px;
+}
 .playersName {
     /*width: 50px;*/
 }
