@@ -52,7 +52,13 @@ function initMap(location) {
         map: map,
         title: "Old St. Andrews"
     });
+    var id = document.getElementById("tee").value;
     $('#courseName').append(" for " + model.course.name);
+    findPar();
+    for (var i = 1; i != 18; i++) {
+        loadYards(id, i);
+    }
+
     //$('#legendTable').stacktable();
 }
 function submitSettings() {
@@ -61,6 +67,7 @@ function submitSettings() {
     removeTees(tee);
     addHoles(holecount);
     addTeeBox(holecount, tee);
+    loadYards(tee, holecount);
     if (holecount == 18) {
         addClass(holecount);
     }
@@ -68,6 +75,7 @@ function submitSettings() {
         removeClass(holecount, tee);
     }
 }
+
 function addHoles(holecount) {
     for (var i = 0; i < holecount; i++) {
         var hole = model.course.holes[i].green_location;
@@ -78,34 +86,67 @@ function addTeeBox(holecount, tee) {
     var index;
     var teebox;
     if (tee == "men") {
-        index = 0;
+        index = 3;
         for (var i = 0; i < holecount; i++) {
             teebox = model.course.holes[i].tee_boxes[index].location;
             addMarker(teebox, mIcon);
         }
     }
     if (tee == "women") {
-        index = 1;
+        index = 2;
         for (var i = 0; i < holecount; i++) {
             teebox = model.course.holes[i].tee_boxes[index].location;
             addMarker(teebox, wIcon);
         }
     }
     if (tee == "champion") {
-        index = 2;
+        index = 1;
         for (var i = 0; i < holecount; i++) {
             teebox = model.course.holes[i].tee_boxes[index].location;
             addMarker(teebox, cIcon);
         }
     }
     if (tee == "professional") {
-        index = 3;
+        index = 0;
         for (var i = 0; i < holecount; i++) {
             teebox = model.course.holes[i].tee_boxes[index].location;
             addMarker(teebox, pIcon);
         }
     }
 
+}
+function findPar () {
+    var courselength = 18;
+    var par;
+    var index = 1;
+    for (var i = 0; i < courselength; i++) {
+        par = Number(model.course.holes[i].tee_boxes[0].par);
+        $('#par' + index).text(par);
+        index++;
+    }
+}
+function loadYards(id, index) {
+    var n, yards;
+    if (id == 'men') {
+        n = 3;
+        yards = model.course.holes[index].tee_boxes[n].yards;
+        $('#' + id + 'hole' + index).text(yards);
+    }
+    if (id == 'women') {
+        n = 2;
+        yards = model.course.holes[index].tee_boxes[n].yards;
+        $('#' + id + 'hole' + index).text(yards);
+    }
+    if (id == 'champion') {
+        n = 1;
+        yards = model.course.holes[index].tee_boxes[n].yards;
+        $('#' + id + 'hole' + index).text(yards);
+    }
+    if (id == 'professional') {
+        n = 0;
+        yards = model.course.holes[index].tee_boxes[n].yards;
+        $('#' + id + 'hole' + index).text(yards);
+    }
 }
 function addHMarker(location) {
     var marker = new google.maps.Marker({
@@ -193,7 +234,7 @@ function addClass() {
 function removeClass(holecount, tee) {
     $('.totals9').removeClass('hide').addClass('show-cell');
     for (var i = 10; i != 19; i++) {
-        $('hole' + i).removeClass('show-cell').addClass('hide');
+        $('.hole' + i).removeClass('show-cell').addClass('hide');
     }
     $('.totals18').removeClass('show-cell').addClass('hide');
     deleteMarkers();
@@ -246,3 +287,4 @@ function addRow() {
     }
     pindex++;
 }
+
