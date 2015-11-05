@@ -162,6 +162,7 @@
     <table id="playersTable">
 
         <tr id="pHeadings">
+            <th id="p1cbheading"></th>
             <th id="name" class="nameheading" contenteditable="false">Name</th>
             <th id="hhole1" class="hole1" contenteditable="false">Hole 1</th>
             <th id="hhole2" class="hole2" contenteditable="false">Hole 2</th>
@@ -185,7 +186,8 @@
             <th id="htotals18header" class="totals18 hide" contenteditable="false">Total</th>
         </tr>
         <tr id="player1">
-            <td id="p1Name" class="nameheading" contenteditable="true">Michael Teagle</td>
+            <td id="p1cb" class="cb" onclick="activatecb(this.id, true)"><i class="fa fa-check"></i></td>
+            <td id="p1Name" class="nameheading" contenteditable="false">Michael Teagle</td>
             <td id="p1h1" class="hole1" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p1h2" class="hole2" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p1h3" class="hole3" onblur="totalIt(this.id)" contenteditable="true"></td>
@@ -208,7 +210,8 @@
             <td id="p1totals18" class="totals18 hide" contenteditable="false"></td>
         </tr>
         <tr id="player2">
-            <td id="p2Name" class="nameheading" contenteditable="true">Jennifer Teagle</td>
+            <td id="p2cb" class="cb" onclick="activatecb(this.id, true)"><i class="fa fa-check"></i></td>
+            <td id="p2Name" class="nameheading" contenteditable="false">Jennifer Teagle</td>
             <td id="p2h1" class="hole1" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p2h2" class="hole2" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p2h3" class="hole3" onblur="totalIt(this.id)" contenteditable="true"></td>
@@ -230,7 +233,8 @@
             <td id="p2h18" class="hole18 hide" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p2totals18" class="totals18 hide" contenteditable="false"></td>
         <tr id="player3">
-            <td id="p3Name" class="nameheading" contenteditable="true">Madison Teagle</td>
+            <td id="p3cb" class="cb" onclick="activatecb(this.id, true)"><i class="fa fa-check"></i></td>
+            <td id="p3Name" class="nameheading" contenteditable="false">Madison Teagle</td>
             <td id="p3h1" class="hole1" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p3h2" class="hole2" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p3h3" class="hole3" onblur="totalIt(this.id)" contenteditable="true"></td>
@@ -252,7 +256,8 @@
             <td id="p3h18" class="hole18 hide" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p3totals18" class="totals18 hide" contenteditable="false"></td>
         <tr id="player4">
-            <td id="p4Name" class="nameheading" contenteditable="true">Britain Teagle</td>
+            <td id="p4cb" class="cb" onclick="activatecb(this.id, true)"><i class="fa fa-check"></i></td>
+            <td id="p4Name" class="nameheading"  contenteditable="false">Britain Teagle</td>
             <td id="p4h1" class="hole1" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p4h2" class="hole2" onblur="totalIt(this.id)" contenteditable="true"></td>
             <td id="p4h3" class="hole3" onblur="totalIt(this.id)" contenteditable="true"></td>
@@ -277,7 +282,7 @@
     </table>
     <div class="row">
         <div id="addP" class="col s2"><a onclick="addRow()">Add Player</a></div>
-        <div id="removeP" class="col s2"><a onclick="deleteRow()">Remove Player</a></div>
+        <div id="removeP" class="col s2 hide"><a onclick="deleteRow()">Remove Player</a></div>
     </div>
 </section>
 <div id="boxes">

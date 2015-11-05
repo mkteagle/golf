@@ -287,6 +287,8 @@ function addRow() {
     var holed = document.getElementById('holecount').value;
     var newplayer = "<tr id=player" + pindex + "></tr>";
     $('#playersTable').append(newplayer);
+    var newcb = "<td id=p" + pindex + "cb onclick='activatecb(this.id, true)'><i class='fa fa-check'></i></td>";
+    $('#player' + pindex).append(newcb);
     var newname = "<td id=p" + pindex + "Name class='nameheading' contenteditable='true' placeholder='New Player'></td>";
     $('#player' + pindex).append(newname);
     if (holed == 9 || holed == undefined || holed == '') {
@@ -313,11 +315,35 @@ function addRow() {
         }
         $('#player' + pindex).append("<td id=p" + pindex + "totals18 class='totals18 show-cell' contenteditable='false'></td>");
     }
+    activatecb('p' + pindex + 'cb', true);
+    $('#p' + pindex + 'Name').focus();
     pindex++;
 }
+var dTrue = false;
+function activatecb(id, torf) {
+    var ids = $('#' + id);
+    var crow = ids.closest("tr");
+    var acbf = 'activatecb(id, false)';
+    var acbt = 'activatecb(id, true)';
+    if (torf) {
+        ids.removeClass('cb').addClass('checkactive');
+        $('.cb').removeAttr("onclick");
+        ids.attr("onclick", acbf);
+        ids.next().attr("contenteditable", true);
+        $('#removeP').removeClass('hide');
+        $('#addP').addClass('hide');
+    }
+    if (!torf) {
+        ids.removeClass('checkactive').addClass('cb');
+        ids.next().attr("contenteditable", false);
+        $('.cb').attr("onclick", acbt);
+        $('#removeP').addClass('hide');
+        $('#addP').removeClass('hide');
+    }
+}
 function deleteRow() {
-    var lastListItem = $("#playersTable").find("tr").last().attr("id");
-    console.log(lastListItem);
-    $('#' + lastListItem).remove();
+    var deleteit = $('.checkactive').closest('tr');
+    $(deleteit).remove();
+    $('#removeP').addClass('hide');
 }
 

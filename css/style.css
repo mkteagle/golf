@@ -270,3 +270,6 @@ h1 {
 th:hover {
     cursor: pointer;
 }
+.checkactive {
+    color: green;
+}
