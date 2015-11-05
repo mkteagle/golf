@@ -287,7 +287,7 @@ function addRow() {
     var holed = document.getElementById('holecount').value;
     var newplayer = "<tr id=player" + pindex + "></tr>";
     $('#playersTable').append(newplayer);
-    var newcb = "<td id=p" + pindex + "cb onclick='activatecb(this.id, true)'><i class='fa fa-check'></i></td>";
+    var newcb = "<td id=p" + pindex + "cb cbhover onclick='activatecb(this.id, true)'><i class='fa fa-pencil'></i></td>";
     $('#player' + pindex).append(newcb);
     var newname = "<td id=p" + pindex + "Name class='nameheading' contenteditable='true' placeholder='New Player'></td>";
     $('#player' + pindex).append(newname);
@@ -319,22 +319,25 @@ function addRow() {
     $('#p' + pindex + 'Name').focus();
     pindex++;
 }
-var dTrue = false;
 function activatecb(id, torf) {
     var ids = $('#' + id);
     var crow = ids.closest("tr");
     var acbf = 'activatecb(id, false)';
     var acbt = 'activatecb(id, true)';
     if (torf) {
-        ids.removeClass('cb').addClass('checkactive');
+        ids.removeClass('cb').addClass('checkactive cbhover');
         $('.cb').removeAttr("onclick");
         ids.attr("onclick", acbf);
         ids.next().attr("contenteditable", true);
+        ids.next().focus();
+        var tmpStr = ids.next().text();
+        ids.next().text('');
+        ids.next().text(tmpStr);
         $('#removeP').removeClass('hide');
         $('#addP').addClass('hide');
     }
     if (!torf) {
-        ids.removeClass('checkactive').addClass('cb');
+        ids.removeClass('checkactive').addClass('cb cbhover');
         ids.next().attr("contenteditable", false);
         $('.cb').attr("onclick", acbt);
         $('#removeP').addClass('hide');
@@ -344,6 +347,70 @@ function activatecb(id, torf) {
 function deleteRow() {
     var deleteit = $('.checkactive').closest('tr');
     $(deleteit).remove();
+    $('#addP').removeClass('hide');
     $('#removeP').addClass('hide');
 }
+(function($){
+    $.fn.focusTextToEnd = function(){
+        this.focus();
+        var $thisVal = this.val();
+        this.val('').val($thisVal);
+        return this;
+    }
+}(jQuery));
+function stopEnterKey(id, next) {
+    $('#' + id).on('keydown', function(e) {
+        var idR = $("#playersTable").find("tr").last();
+        if(e.keyCode == 13)
+        {
+            if (next.parent() == idR) {
+
+            }
+            $(next).focus();
+            e.preventDefault();
+        }
+    });
+}
+function emButtonclicked() {
+    // parse playersTable for td values
+    // use localStorage to store values for innerText
+    // email scores and winners to email addresses that are set up on the email page
+
+}
+$.ajax({
+    type: "POST",
+    url: "https://mandrillapp.com/api/1.0/messages/send.json",
+    'key': 'waoAPlcr5OP6LugiM9Jc8A',
+    'message': {
+        'from_email': 'mkteagle@gmail.com',
+        'to': [
+            {
+                'email': usr1,
+                'name': usrname1,
+                'type': to
+            },
+            {
+                'email': usr2,
+                'name': usrname2,
+                'type': to
+            },
+            {
+                'email': usr3,
+                'name': usrname3,
+                'type': to
+            },
+            {
+                'email': usr4,
+                'name': usrname4,
+                'type': to
+            }
+        ],
+        'autotext': 'true',
+        'subject': 'Score!!!',
+        'html': 'YOUR EMAIL CONTENT GOES HERE'
+    }
+}).done(function(response){
+    console.log(response);
+});
+
 

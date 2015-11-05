@@ -5,7 +5,7 @@ html, body {
     background: #6C554B;
 }
 #map {
-    height: 50%;
+    height: 75%;
     width: 100%;
 }
 /*body{*/
@@ -272,4 +272,7 @@ th:hover {
 }
 .checkactive {
     color: green;
+}
+.cbhover {
+    cursor: pointer;
 }
