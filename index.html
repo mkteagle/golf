@@ -26,7 +26,8 @@
 <section id="legend">
     <h1>Score Card</h1>
     <ul class="collapsible popout" data-collapsible="accordion">
-        <li><div class="collapsible-header"><i class="material-icons">filter_drama</i>Legend</div>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>Legend</div>
             <div class="collapsible-body addStyle">
                 <table id="legendTable">
                     <th></th>
@@ -39,6 +40,7 @@
                     <th id="hole7" onclick="findHoleCenter(this.id)">Hole 7</th>
                     <th id="hole8" onclick="findHoleCenter(this.id)">Hole 8</th>
                     <th id="hole9" onclick="findHoleCenter(this.id)">Hole 9</th>
+                    <th id="Out" class="totals9">Out</th>
                     <th id="hole10" onclick="findHoleCenter(this.id)" class="hide hole10">Hole 10</th>
                     <th id="hole11" onclick="findHoleCenter(this.id)" class="hide hole11">Hole 11</th>
                     <th id="hole12" onclick="findHoleCenter(this.id)" class="hide hole12">Hole 12</th>
@@ -48,8 +50,9 @@
                     <th id="hole16" onclick="findHoleCenter(this.id)" class="hide hole16">Hole 16</th>
                     <th id="hole17" onclick="findHoleCenter(this.id)" class="hide hole17">Hole 17</th>
                     <th id="hole18" onclick="findHoleCenter(this.id)" class="hide hole18">Hole 18</th>
+                    <th id="totaly" class="hide totals18">Total</th>
                     <tr class="par">
-                        <td class ="par">Par</td>
+                        <td class="par">Par</td>
                         <td class="hole1" id="par1"></td>
                         <td class="hole2" id="par2"></td>
                         <td class="hole3" id="par3"></td>
@@ -59,6 +62,7 @@
                         <td class="hole7" id="par7"></td>
                         <td class="hole8" id="par8"></td>
                         <td class="hole9" id="par9"></td>
+                        <td class="totals9" id="ptotal9"></td>
                         <td class="hole10 hide" id="par10"></td>
                         <td class="hole11 hide" id="par11"></td>
                         <td class="hole12 hide" id="par12"></td>
@@ -68,6 +72,8 @@
                         <td class="hole16 hide" id="par16"></td>
                         <td class="hole17 hide" id="par17"></td>
                         <td class="hole18 hide" id="par18"></td>
+                        <td class="totals18 hide" id="ptotal18"></td>
+
                     </tr>
                     <tr class="men hide">
                         <td class="menhole" id="lmens">Men's</td>
@@ -80,6 +86,7 @@
                         <td class="hole7" id="menhole7"></td>
                         <td class="hole8" id="menhole8"></td>
                         <td class="hole9" id="menhole9"></td>
+                        <td class="totals9" id="mentotals9"></td>
                         <td class="hole10 hide" id="menhole10"></td>
                         <td class="hole11 hide" id="menhole11"></td>
                         <td class="hole12 hide" id="menhole12"></td>
@@ -89,6 +96,7 @@
                         <td class="hole16 hide" id="menhole16"></td>
                         <td class="hole17 hide" id="menhole17"></td>
                         <td class="hole18 hide" id="menhole18"></td>
+                        <td class="totals18 hide" id="mentotals18"></td>
                     </tr>
                     <tr class="women hide">
                         <td class="womenhole" id="lwomens">Women's</td>
@@ -101,6 +109,7 @@
                         <td class="hole7" id="womenhole7"></td>
                         <td class="hole8" id="womenhole8"></td>
                         <td class="hole9" id="womenhole9"></td>
+                        <td class="totals9" id="womentotals9"></td>
                         <td class="hole10 hide" id="womenhole10"></td>
                         <td class="hole11 hide" id="womenhole11"></td>
                         <td class="hole12 hide" id="womenhole12"></td>
@@ -110,6 +119,7 @@
                         <td class="hole16 hide" id="womenhole16"></td>
                         <td class="hole17 hide" id="womenhole17"></td>
                         <td class="hole18 hide" id="womenhole18"></td>
+                        <td class="totals18 hide" id="womentotals18"></td>
                     </tr>
                     <tr class="champion hide">
                         <td class="championhole" id="lchampion">Champion</td>
@@ -122,6 +132,7 @@
                         <td class="hole7" id="championhole7"></td>
                         <td class="hole8" id="championhole8"></td>
                         <td class="hole9" id="championhole9"></td>
+                        <td class="totals9" id="championtotals9"></td>
                         <td class="hole10 hide" id="championhole10"></td>
                         <td class="hole11 hide" id="championhole11"></td>
                         <td class="hole12 hide" id="championhole12"></td>
@@ -131,6 +142,7 @@
                         <td class="hole16 hide" id="championhole16"></td>
                         <td class="hole17 hide" id="championhole17"></td>
                         <td class="hole18 hide" id="championhole18"></td>
+                        <td class="totals18 hide" id="championtotals18"></td>
                     </tr>
                     <tr class="professional hide">
                         <td class="professionalhole" id="lproffesional">Professional</td>
@@ -143,6 +155,7 @@
                         <td class="hole7" id="professionalhole7"></td>
                         <td class="hole8" id="professionalhole8"></td>
                         <td class="hole9" id="professionalhole9"></td>
+                        <td class="totals9" id="professionaltotals9"></td>
                         <td class="hole10 hide" id="professionalhole10"></td>
                         <td class="hole11 hide" id="professionalhole11"></td>
                         <td class="hole12 hide" id="professionalhole12"></td>
@@ -152,6 +165,7 @@
                         <td class="hole16 hide" id="professionalhole16"></td>
                         <td class="hole17 hide" id="professionalhole17"></td>
                         <td class="hole18 hide" id="professionalhole18"></td>
+                        <td class="totals18 hide" id="professionaltotals18"></td>
                     </tr>
                 </table>
             </div>
@@ -160,7 +174,7 @@
 </section>
 <section id="tables">
     <table id="playersTable">
-
+        <thead>
         <tr id="pHeadings">
             <th id="p1cbheading"></th>
             <th id="name" class="nameheading" contenteditable="false">Name</th>
@@ -185,100 +199,180 @@
             <th id="hhole18" class="hole18 hide" contenteditable="false">Hole 18</th>
             <th id="htotals18header" class="totals18 hide" contenteditable="false">Total</th>
         </tr>
+        </thead>
+        <tbody>
         <tr id="player1">
             <td id="p1cb" class="cb cbhover" onclick="activatecb(this.id, true)"><i class="fa fa-pencil"></i></td>
-            <td id="p1Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Michael Teagle</td>
-            <td id="p1h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h1')" contenteditable="true"></td>
-            <td id="p1h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h2')" contenteditable="true"></td>
-            <td id="p1h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h3')" contenteditable="true"></td>
-            <td id="p1h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h4')" contenteditable="true"></td>
-            <td id="p1h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h5')" contenteditable="true"></td>
-            <td id="p1h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h6')" contenteditable="true"></td>
-            <td id="p1h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h7')" contenteditable="true"></td>
-            <td id="p1h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h8')" contenteditable="true"></td>
-            <td id="p1h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h9')" contenteditable="true"></td>
+            <td id="p1Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Michael Teagle
+            </td>
+            <td id="p1h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h1')"
+                contenteditable="true"></td>
+            <td id="p1h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h2')"
+                contenteditable="true"></td>
+            <td id="p1h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h3')"
+                contenteditable="true"></td>
+            <td id="p1h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h4')"
+                contenteditable="true"></td>
+            <td id="p1h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h5')"
+                contenteditable="true"></td>
+            <td id="p1h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h6')"
+                contenteditable="true"></td>
+            <td id="p1h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h7')"
+                contenteditable="true"></td>
+            <td id="p1h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h8')"
+                contenteditable="true"></td>
+            <td id="p1h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h9')"
+                contenteditable="true"></td>
             <td id="p1totals9" class="totals9" contenteditable="false"></td>
-            <td id="p1h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h10')" contenteditable="true"></td>
-            <td id="p1h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h11')" contenteditable="true"></td>
-            <td id="p1h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h12')" contenteditable="true"></td>
-            <td id="p1h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h13')" contenteditable="true"></td>
-            <td id="p1h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h14')" contenteditable="true"></td>
-            <td id="p1h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h15')" contenteditable="true"></td>
-            <td id="p1h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h16')" contenteditable="true"></td>
-            <td id="p1h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h17')" contenteditable="true"></td>
-            <td id="p1h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h18')" contenteditable="true"></td>
+            <td id="p1h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h10')"
+                contenteditable="true"></td>
+            <td id="p1h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h11')"
+                contenteditable="true"></td>
+            <td id="p1h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h12')"
+                contenteditable="true"></td>
+            <td id="p1h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h13')"
+                contenteditable="true"></td>
+            <td id="p1h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h14')"
+                contenteditable="true"></td>
+            <td id="p1h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h15')"
+                contenteditable="true"></td>
+            <td id="p1h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h16')"
+                contenteditable="true"></td>
+            <td id="p1h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h17')"
+                contenteditable="true"></td>
+            <td id="p1h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p2h18')"
+                contenteditable="true"></td>
             <td id="p1totals18" class="totals18 hide" contenteditable="false"></td>
         </tr>
         <tr id="player2">
             <td id="p2cb" class="cb cbhover" onclick="activatecb(this.id, true)"><i class="fa fa-pencil"></i></td>
-            <td id="p2Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Jennifer Teagle</td>
-            <td id="p2h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h1')" contenteditable="true"></td>
-            <td id="p2h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h2')" contenteditable="true"></td>
-            <td id="p2h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h3')" contenteditable="true"></td>
-            <td id="p2h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h4')" contenteditable="true"></td>
-            <td id="p2h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h5')" contenteditable="true"></td>
-            <td id="p2h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h6')" contenteditable="true"></td>
-            <td id="p2h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h7')" contenteditable="true"></td>
-            <td id="p2h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h8')" contenteditable="true"></td>
-            <td id="p2h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h9')" contenteditable="true"></td>
+            <td id="p2Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Jennifer
+                Teagle
+            </td>
+            <td id="p2h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h1')"
+                contenteditable="true"></td>
+            <td id="p2h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h2')"
+                contenteditable="true"></td>
+            <td id="p2h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h3')"
+                contenteditable="true"></td>
+            <td id="p2h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h4')"
+                contenteditable="true"></td>
+            <td id="p2h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h5')"
+                contenteditable="true"></td>
+            <td id="p2h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h6')"
+                contenteditable="true"></td>
+            <td id="p2h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h7')"
+                contenteditable="true"></td>
+            <td id="p2h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h8')"
+                contenteditable="true"></td>
+            <td id="p2h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h9')"
+                contenteditable="true"></td>
             <td id="p2totals9" class="totals9" contenteditable="false"></td>
-            <td id="p2h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h10')" contenteditable="true"></td>
-            <td id="p2h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h11')" contenteditable="true"></td>
-            <td id="p2h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h12')" contenteditable="true"></td>
-            <td id="p2h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h13')" contenteditable="true"></td>
-            <td id="p2h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h14')" contenteditable="true"></td>
-            <td id="p2h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h15')" contenteditable="true"></td>
-            <td id="p2h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h16')" contenteditable="true"></td>
-            <td id="p2h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h17')" contenteditable="true"></td>
-            <td id="p2h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h18')" contenteditable="true"></td>
+            <td id="p2h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h10')"
+                contenteditable="true"></td>
+            <td id="p2h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h11')"
+                contenteditable="true"></td>
+            <td id="p2h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h12')"
+                contenteditable="true"></td>
+            <td id="p2h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h13')"
+                contenteditable="true"></td>
+            <td id="p2h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h14')"
+                contenteditable="true"></td>
+            <td id="p2h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h15')"
+                contenteditable="true"></td>
+            <td id="p2h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h16')"
+                contenteditable="true"></td>
+            <td id="p2h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h17')"
+                contenteditable="true"></td>
+            <td id="p2h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p3h18')"
+                contenteditable="true"></td>
             <td id="p2totals18" class="totals18 hide" contenteditable="false"></td>
         <tr id="player3">
             <td id="p3cb" class="cb cbhover" onclick="activatecb(this.id, true)"><i class="fa fa-pencil"></i></td>
-            <td id="p3Name" class="nameheading" onfocus="stopEnterKey(this.id)"  contenteditable="false">Madison Teagle</td>
-            <td id="p3h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h1')" contenteditable="true"></td>
-            <td id="p3h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h2')" contenteditable="true"></td>
-            <td id="p3h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h3')" contenteditable="true"></td>
-            <td id="p3h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h4')" contenteditable="true"></td>
-            <td id="p3h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h5')" contenteditable="true"></td>
-            <td id="p3h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h6')" contenteditable="true"></td>
-            <td id="p3h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h7')" contenteditable="true"></td>
-            <td id="p3h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h8')" contenteditable="true"></td>
-            <td id="p3h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h9')" contenteditable="true"></td>
+            <td id="p3Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Madison Teagle
+            </td>
+            <td id="p3h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h1')"
+                contenteditable="true"></td>
+            <td id="p3h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h2')"
+                contenteditable="true"></td>
+            <td id="p3h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h3')"
+                contenteditable="true"></td>
+            <td id="p3h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h4')"
+                contenteditable="true"></td>
+            <td id="p3h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h5')"
+                contenteditable="true"></td>
+            <td id="p3h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h6')"
+                contenteditable="true"></td>
+            <td id="p3h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h7')"
+                contenteditable="true"></td>
+            <td id="p3h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h8')"
+                contenteditable="true"></td>
+            <td id="p3h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h9')"
+                contenteditable="true"></td>
             <td id="p3totals9" class="totals9" contenteditable="false"></td>
-            <td id="p3h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h10')" contenteditable="true"></td>
-            <td id="p3h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h11')" contenteditable="true"></td>
-            <td id="p3h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h12')" contenteditable="true"></td>
-            <td id="p3h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h13')" contenteditable="true"></td>
-            <td id="p3h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h14')" contenteditable="true"></td>
-            <td id="p3h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h15')" contenteditable="true"></td>
-            <td id="p3h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h16')" contenteditable="true"></td>
-            <td id="p3h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h17')" contenteditable="true"></td>
-            <td id="p3h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h18')" contenteditable="true"></td>
+            <td id="p3h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h10')"
+                contenteditable="true"></td>
+            <td id="p3h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h11')"
+                contenteditable="true"></td>
+            <td id="p3h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h12')"
+                contenteditable="true"></td>
+            <td id="p3h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h13')"
+                contenteditable="true"></td>
+            <td id="p3h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h14')"
+                contenteditable="true"></td>
+            <td id="p3h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h15')"
+                contenteditable="true"></td>
+            <td id="p3h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h16')"
+                contenteditable="true"></td>
+            <td id="p3h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h17')"
+                contenteditable="true"></td>
+            <td id="p3h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p4h18')"
+                contenteditable="true"></td>
             <td id="p3totals18" class="totals18 hide" contenteditable="false"></td>
         <tr id="player4">
             <td id="p4cb" class="cb cbhover" onclick="activatecb(this.id, true)"><i class="fa fa-pencil"></i></td>
-            <td id="p4Name" class="nameheading"   onfocus="stopEnterKey(this.id)" contenteditable="false">Britain Teagle</td>
-            <td id="p4h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h1')" contenteditable="true"></td>
-            <td id="p4h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h2')" contenteditable="true"></td>
-            <td id="p4h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h3')" contenteditable="true"></td>
-            <td id="p4h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h4')" contenteditable="true"></td>
-            <td id="p4h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h5')" contenteditable="true"></td>
-            <td id="p4h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h6')" contenteditable="true"></td>
-            <td id="p4h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h7')" contenteditable="true"></td>
-            <td id="p4h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h8')" contenteditable="true"></td>
-            <td id="p4h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h9')" contenteditable="true"></td>
+            <td id="p4Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Britain Teagle
+            </td>
+            <td id="p4h1" class="hole1" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h1')"
+                contenteditable="true"></td>
+            <td id="p4h2" class="hole2" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h2')"
+                contenteditable="true"></td>
+            <td id="p4h3" class="hole3" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h3')"
+                contenteditable="true"></td>
+            <td id="p4h4" class="hole4" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h4')"
+                contenteditable="true"></td>
+            <td id="p4h5" class="hole5" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h5')"
+                contenteditable="true"></td>
+            <td id="p4h6" class="hole6" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h6')"
+                contenteditable="true"></td>
+            <td id="p4h7" class="hole7" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h7')"
+                contenteditable="true"></td>
+            <td id="p4h8" class="hole8" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h8')"
+                contenteditable="true"></td>
+            <td id="p4h9" class="hole9" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h9')"
+                contenteditable="true"></td>
             <td id="p4totals9" class="totals9" contenteditable="false"></td>
-            <td id="p4h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h10')" contenteditable="true"></td>
-            <td id="p4h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h11')" contenteditable="true"></td>
-            <td id="p4h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h12')" contenteditable="true"></td>
-            <td id="p4h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h13')" contenteditable="true"></td>
-            <td id="p4h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h14')" contenteditable="true"></td>
-            <td id="p4h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h15')" contenteditable="true"></td>
-            <td id="p4h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h16')" contenteditable="true"></td>
-            <td id="p4h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h17')" contenteditable="true"></td>
-            <td id="p4h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h18')" contenteditable="true"></td>
+            <td id="p4h10" class="hole10 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h10')"
+                contenteditable="true"></td>
+            <td id="p4h11" class="hole11 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h11')"
+                contenteditable="true"></td>
+            <td id="p4h12" class="hole12 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h12')"
+                contenteditable="true"></td>
+            <td id="p4h13" class="hole13 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h13')"
+                contenteditable="true"></td>
+            <td id="p4h14" class="hole14 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h14')"
+                contenteditable="true"></td>
+            <td id="p4h15" class="hole15 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h15')"
+                contenteditable="true"></td>
+            <td id="p4h16" class="hole16 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h16')"
+                contenteditable="true"></td>
+            <td id="p4h17" class="hole17 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h17')"
+                contenteditable="true"></td>
+            <td id="p4h18" class="hole18 hide" onblur="totalIt(this.id)" onfocus="stopEnterKey(this.id, '#p5h18')"
+                contenteditable="true"></td>
             <td id="p4totals18" class="totals18 hide" contenteditable="false"></td>
         </tr>
+        </tbody>
     </table>
     <div class="row">
         <div id="addP" class="col s2"><a onclick="addRow()">Add Player</a></div>
@@ -305,14 +399,15 @@
                 </select>
                 <input type="submit" class="close agree" value="Save Settings" onclick="submitSettings()">
                 <button class="close agree" onclick="deleteMarkers()">Clear Markers</button>
-                <button class="close email" onclick="emailScores()">Email Scores</button>
+                <button class="close email" onclick="emButtonclicked()">Email Scores</button>
             </form>
         </div>
     </div>
 </div>
 <div id="mask"></div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>
+<!--<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>-->
+<script type="text/javascript" src="js/jquery.tabletojson.min.js"></script>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
 <script async defer

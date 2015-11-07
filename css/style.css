@@ -276,3 +276,10 @@ th:hover {
 .cbhover {
     cursor: pointer;
 }
+#EmailIt {
+    height: 75px;
+    width: 500px;
+}
+#nameh {
+    width: 100px;
+}
