@@ -1,14 +1,17 @@
-var wIcon = 'img/purplebox-woman.png';
-var mIcon = 'img/bluebox-men.png';
-var cIcon = 'img/graybox-champion.png';
-var pIcon = 'img/blackbox-professional.png';
+var wIcon = 'img/purple-tee.png';
+var mIcon = 'img/blue-tee.png';
+var cIcon = 'img/white-tee.png';
+var pIcon = 'img/black-tee.png';
 var redirectURI = document.URL;
 var clientID = "a88e7b45-fa45-4d05-829e-975681adc580";
 var model;
 var map;
 var markers = [];
 var pindex = 5;
-
+var tees = [];
+var teeboxes = [];
+var course;
+var ui = 1;
 var accessToken = getUrlVars().access_token;
 var swingBySwing = "https://api.swingbyswing.com/v2/oauth/authorize?scope=read&redirect_uri=" + encodeURI(redirectURI) + "&response_type=token&client_id=" + clientID;
 if (accessToken == null) {
@@ -26,7 +29,6 @@ function getUrlVars() {
         });
     return vars;
 }
-
 function getCourse(courseId) {
     var xhttp = new XMLHttpRequest();
     var swingLink = "https://api.swingbyswing.com/v2/courses/" + courseId + "?includes=practice_area&access_token=" + accessToken;
@@ -35,33 +37,16 @@ function getCourse(courseId) {
         if (xhttp.readyState == 4 && xhttp.status == 200) {
             model = JSON.parse(xhttp.responseText);
             var location = model.course.location;
+            course = model.course;
             initMap(location);
         }
     };
     xhttp.open("GET", swingLink, true);
     xhttp.send();
 }
-
-function initMap(location) {
-    map = new google.maps.Map(document.getElementById('map'), {
-        center: location,
-        zoom: 18,
-        scrollwheel: false,
-        disableDefaultUI: true
-    });
-
-    var marker = new google.maps.Marker({
-        position: location,
-        map: map,
-        title: "Old St. Andrews"
-    });
-    var id = $("#tee").value;
-    $('#courseName').append(" for " + model.course.name);
-    findPar();
-}
 function submitSettings() {
-    var tee = document.getElementById("tee").value;
-    var holecount = document.getElementById("holecount").value;
+    var tee = $("#tee").val();
+    var holecount = $("#holecount").val();
     removeTees(tee);
     addHoles(holecount);
     addTeeBox(holecount, tee);
@@ -71,6 +56,7 @@ function submitSettings() {
     }
     if (holecount == 9) {
         removeClass(holecount, tee);
+        setMapOnTees(map);
     }
     for (var i = 0; i <= 17; i++) {
         loadYards('professional', i);
@@ -80,55 +66,120 @@ function submitSettings() {
         ui++;
     }
 }
+function initMap(location) {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: location,
+        zoom: 18,
+        scrollwheel: false,
+        mapTypeId: google.maps.MapTypeId.SATELLITE,
+        panControl: true,
+        mapTypeControl: false,
+        panControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        zoomControl: true,
+        zoomControlOptions: {
+            style: google.maps.ZoomControlStyle.LARGE,
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        },
+        scaleControl: false,
+        streetViewControl: false,
+        streetViewControlOptions: {
+            position: google.maps.ControlPosition.RIGHT_CENTER
+        }
+    });
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        title: "Old St. Andrews"
+    });
+    $('#courseName').append(" for " + course.name);
+    findPar();
+
+}
 function findHoleCenter(id) {
     var eindex = /(\d+)(?!.*\d)/.exec(id);
     var ei = Number(eindex[1]) - 1;
-    var maplat = model.course.holes[ei].green_location.lat;
-    var maplong = model.course.holes[ei].green_location.lng;
-    var teelat = model.course.holes[ei].tee_boxes[0].location.lat;
-    var teelong = model.course.holes[ei].tee_boxes[0].location.lng;
+    var maplat = course.holes[ei].green_location.lat;
+    var maplong = course.holes[ei].green_location.lng;
+    var teelat = course.holes[ei].tee_boxes[0].location.lat;
+    var teelong = course.holes[ei].tee_boxes[0].location.lng;
     var holelat = Number(maplat + teelat)/2;
     var holelong = Number(maplong + teelong)/2;
+    var loc = {'lat': maplat, "lng": maplong};
     holesCenter(holelat, holelong);
+    deleteMarkers();
+    addHMarker(loc);
+    deleteTees();
+    for (var i = 0; i < teeboxes.length; i++) {
+        addSingleTee(ei, teeboxes[i]);
+    }
 }
 function holesCenter(lat, lng) {
     map.setCenter(new google.maps.LatLng(lat, lng));
-    map.setZoom(17);
+    map.setZoom(16);
 }
 function addHoles(holecount) {
     for (var i = 0; i < holecount; i++) {
-        var hole = model.course.holes[i].green_location;
+        var hole = course.holes[i].green_location;
         addHMarker(hole);
+    }
+}
+function addSingleTee(hole, tee) {
+    var teebox, icon;
+    if (tee == 'men') {
+        teebox = course.holes[hole].tee_boxes[3].location;
+        icon = mIcon;
+        addMarker(teebox, icon);
+    }
+    if (tee == 'women') {
+        teebox = course.holes[hole].tee_boxes[2].location;
+        icon = wIcon;
+        addMarker(teebox, icon);
+    }
+    if (tee == 'professional') {
+        teebox = course.holes[hole].tee_boxes[0].location;
+        icon = pIcon;
+        addMarker(teebox, icon);
+    }
+    if (tee == 'champion') {
+        teebox = course.holes[hole].tee_boxes[1].location;
+        icon = cIcon;
+        addMarker(teebox, icon);
     }
 }
 function addTeeBox(holecount, tee) {
     var index;
     var teebox;
     if (tee == "men") {
+        teeboxes.push('men');
         index = 3;
         for (var i = 0; i < holecount; i++) {
-            teebox = model.course.holes[i].tee_boxes[index].location;
+            teebox = course.holes[i].tee_boxes[index].location;
             addMarker(teebox, mIcon);
         }
     }
     if (tee == "women") {
+        teeboxes.push('women');
         index = 2;
         for (var i = 0; i < holecount; i++) {
-            teebox = model.course.holes[i].tee_boxes[index].location;
+            teebox = course.holes[i].tee_boxes[index].location;
             addMarker(teebox, wIcon);
         }
     }
     if (tee == "champion") {
+        teeboxes.push('champion');
         index = 1;
         for (var i = 0; i < holecount; i++) {
-            teebox = model.course.holes[i].tee_boxes[index].location;
+            teebox = course.holes[i].tee_boxes[index].location;
             addMarker(teebox, cIcon);
         }
     }
     if (tee == "professional") {
+        teeboxes.push('champion');
         index = 0;
         for (var i = 0; i < holecount; i++) {
-            teebox = model.course.holes[i].tee_boxes[index].location;
+            teebox = course.holes[i].tee_boxes[index].location;
             addMarker(teebox, pIcon);
         }
     }
@@ -136,26 +187,27 @@ function addTeeBox(holecount, tee) {
 }
 function findPar () {
     var courselength = 18;
-    var par;
+    var par, hc;
     var index = 1;
     for (var i = 0; i < courselength; i++) {
-        par = Number(model.course.holes[i].tee_boxes[0].par);
+        par = Number(course.holes[i].tee_boxes[0].par);
+        hc = Number(course.holes[i].tee_boxes[0].hcp);
         $('#par' + index).text(par);
+        $('#hc' + index).text(hc);
         index++;
     }
 }
-var ui = 1;
 function loadYards(id, n) {
     var yards, a, yards9, yards18, total18yards, total9yards;
-    total18yards = model.course.tee_types[0].par;
-    total9yards = model.course.tee_types[0].front_nine_par;
+    total18yards = course.tee_types[0].par;
+    total9yards = course.tee_types[0].front_nine_par;
     $('#ptotal18').text(total18yards);
     $('#ptotal9').text(total9yards);
     if (id == 'men') {
         a = 2;
-        yards = model.course.holes[n].tee_boxes[a].yards;
-        yards18 = model.course.tee_types[a].yards
-        yards9 = model.course.tee_types[a].front_nine_yards;
+        yards = course.holes[n].tee_boxes[a].yards;
+        yards18 = course.tee_types[a].yards
+        yards9 = course.tee_types[a].front_nine_yards;
         $('#' + id + 'hole' + ui).text(yards);
         $('#' + id + 'totals9').text(yards9);
         $('#' + id + 'totals18').text(yards18);
@@ -163,46 +215,67 @@ function loadYards(id, n) {
     }
     if (id == 'women') {
         a = 3;
-        yards9 = model.course.tee_types[a].front_nine_yards;
-        yards18 = model.course.tee_types[a].yards;
-        yards = model.course.holes[n].tee_boxes[a].yards;
+        yards9 = course.tee_types[a].front_nine_yards;
+        yards18 = course.tee_types[a].yards;
+        yards = course.holes[n].tee_boxes[a].yards;
         $('#' + id + 'hole' + ui).text(yards);
         $('#' + id + 'totals9').text(yards9);
         $('#' + id + 'totals18').text(yards18);
     }
     if (id == 'champion') {
         a = 1;
-        yards9 = model.course.tee_types[a].front_nine_yards;
-        yards18 = model.course.tee_types[a].yards;
-        yards = model.course.holes[n].tee_boxes[a].yards;
+        yards9 = course.tee_types[a].front_nine_yards;
+        yards18 = course.tee_types[a].yards;
+        yards = course.holes[n].tee_boxes[a].yards;
         $('#' + id + 'hole' + ui).text(yards);
         $('#' + id + 'totals9').text(yards9);
         $('#' + id + 'totals18').text(yards18);
     }
     if (id == 'professional') {
         a = 0;
-        yards9 = model.course.tee_types[a].front_nine_yards;
-        yards18 = model.course.tee_types[a].yards;
-        yards = model.course.holes[n].tee_boxes[a].yards;
+        yards9 = course.tee_types[a].front_nine_yards;
+        yards18 = course.tee_types[a].yards;
+        yards = course.holes[n].tee_boxes[a].yards;
         $('#' + id + 'hole' + ui).text(yards);
         $('#' + id + 'totals9').text(yards9);
         $('#' + id + 'totals18').text(yards18);
     }
 }
 function addHMarker(location) {
+    var pinIcon = new google.maps.MarkerImage(
+        'img/golfflag.png',
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(60, 62)
+    );
     var marker = new google.maps.Marker({
         position: location,
-        map: map
+        map: map,
+        icon: pinIcon
     });
     markers.push(marker);
 }
 function addMarker(location, icon) {
+    var pinIcon = new google.maps.MarkerImage(
+        icon,
+        null, /* size is determined at runtime */
+        null, /* origin is 0,0 */
+        null, /* anchor is bottom center of the scaled image */
+        new google.maps.Size(20, 42)
+    );
     var marker = new google.maps.Marker({
         position: location,
         map: map,
-        icon: icon
+        icon: pinIcon
     });
+    tees.push(marker);
     markers.push(marker);
+}
+function setMapOnTees(map) {
+    for (var i = 0; i <tees.length; i++) {
+        tees[i].setMap(map);
+    }
 }
 function setMapOnAll(map) {
     for (var i = 0; i < markers.length; i++) {
@@ -215,6 +288,10 @@ function clearMarkers() {
 function deleteMarkers() {
     clearMarkers();
     markers = [];
+}
+function deleteTees() {
+    setMapOnTees(null);
+    tees = [];
 }
 function settings() {
     var id = '#dialog';
@@ -246,8 +323,107 @@ function settings() {
         $('.window').hide();
     });
 }
-$(document).ready(settings());
-// need a function to addClass to
+function finalTotals() {
+    var count = $('#ptbody').children('tr').length;
+    var last, current, min, winner, pnamewin, pnamelose;
+    var totalsarr = [];
+    var holenum = Number($("#holecount").val());
+    if (holenum == 9) {
+        for (var i = 1; i <= count; i++) {
+
+            pnamewin = '<div id="pnamewin">' + $('#p' + i + 'Name').text() + ' You should be on the PGA Tour!! </div>';
+            pnamelose = '<div id="pnamelose">' + $('#p' + i + 'Name').text() + ' You need more practice!! </div>';
+            current = Number($('#p' + i + 'totals9').text());
+            totalsarr.push(current);
+            if (current < 0) {
+                $('#playersContainer').append(pnamewin);
+            }
+            else {
+                $('#playersContainer').append(pnamelose);
+
+            }
+            min = Math.min.apply(Math, totalsarr);
+        }
+        for (var j = 1; j <= count; j++) {
+            current = Number($('#p' + j + 'totals9').text());
+            if (current == min) {
+                winner = $('#p' + j + 'Name').text();
+            }
+        }
+        $('#winner').text(winner + ' Wins!');
+        setInterval(blinker, 1000);
+    }
+    if (holenum == 18) {
+        for (var k = 1; k <= count; k++) {
+
+            pnamewin = '<div id="pnamewin">' + $('#p' + k + 'Name').text() + ' You should be on the PGA Tour!! </div>';
+            pnamelose = '<div id="pnamelose">' + $('#p' + k + 'Name').text() + ' You need more practice!! </div>';
+            current = Number($('#p' + k + 'totals18').text());
+            totalsarr.push(current);
+            if (current < 0) {
+                $('#playersContainer').append(pnamewin);
+            }
+            else {
+                $('#playersContainer').append(pnamelose);
+
+            }
+            min = Math.min.apply(Math, totalsarr);
+        }
+        for (var l = 1; l <= count; l++) {
+            current = Number($('#p' + l + 'totals18').text());
+            if (current == min) {
+                winner = $('#p' + l + 'Name').text();
+            }
+        }
+        $('#winner').text(winner + ' Wins');
+        setInterval(blinker, 1000);
+    }
+}
+function blinker() {
+    $('#winner').fadeOut(500);
+    $('#winner').fadeIn(500);
+}
+function clearTable() {
+    $('#ptbody').empty();
+    var count = 4;
+    pindex = 1;
+    for (var i = 0; i != count; i++) {
+        addRow();
+    }
+}
+function endGame() {
+    $('#egdialog').removeClass('hide');
+    var id = '#egdialog';
+    var maskHeight = $(document).height();
+    var maskWidth = $(window).width();
+
+    $('#maskeg').css({'width': maskWidth, 'height': maskHeight});
+
+    $('#maskeg').fadeIn(500);
+    $('#maskeg').fadeTo("slow", 0.9);
+
+    var winH = $(window).height();
+    var winW = $(window).width();
+
+    $(id).css('top', winH / 2 - $(id).height() / 2);
+    $(id).css('left', winW / 2 - $(id).width() / 2);
+
+    $(id).fadeIn(2000);
+
+    $('.window .close').click(function (e) {
+        e.preventDefault();
+
+        $('#maskeg').hide();
+        $('.window').hide();
+    });
+
+    $('#maskeg').click(function () {
+        $(this).hide();
+        $('.window').hide();
+        $('#playersContainer').empty();
+        $('#winner').text('');
+    });
+}
 function removeTees(tee) {
     if (tee == "women") {
         $('.women').removeClass('hide').addClass('show-row');
@@ -279,13 +455,12 @@ function removeClass(holecount, tee) {
     addHoles(holecount);
     addTeeBox(holecount, tee);
 }
-
 function totalIt(id) {
 
     var reindex = /^[^\d]*(\d+)/.exec(id);
     var ri = reindex[1];
-    //var eindex = /(\d+)(?!.*\d)/.exec(id);
-    //var ei = eindex[1];
+    var eindex = /(\d+)(?!.*\d)/.exec(id);
+    var ei = Number(eindex[1]);
     var sum = 0;
     for (var i = 1; i != 19; i++) {
         var hsum = Number($('#p' + ri + 'h' + i).text());
@@ -298,8 +473,15 @@ function totalIt(id) {
             sum += hsum;
         }
     }
-    $('#p' + ri + 'totals9').text(sum);
-    $('#p' + ri + 'totals18').text(sum);
+    if (ei < 9) {
+        $('#p' + ri + 'totals9').text(sum);
+        $('#p' + ri + 'totals18').text(sum);
+    }
+    else {
+        $('#p' + ri + 'totals18').text(sum);
+    }
+
+
 }
 function addRow() {
     var holed = document.getElementById('holecount').value;
@@ -313,30 +495,33 @@ function addRow() {
     //activatecb('#p' + pindex + 'cb', true);
     if (holed == 9 || holed == undefined || holed == '') {
         for (var i = 1; i < 10; i++) {
-            var ppp = "'" + '#p' + pindex + 'h' + i + "'";
-            var newp = "<td id=p" + pindex + "h" + i + " class='show-cell hole" + i + "' contenteditable='true' onblur='totalIt(this.id)' onfocus='stopEnterKey(this.id," + ppp + ")'></td>";
-            console.log(newp);
+            ppp = "\'" + '#p' + pindex + 'h' + i + "\'";
+            var newp = "<td id=p" + pindex + "h" + i + " class='show-cell hole" + i + "' contenteditable='true' onblur='totalIt(this.id)')></td>";
             $('#player' + pindex).append(newp);
+            $('#p' + pindex + 'h' + i +'').attr('onfocus', 'stopEnterKey(this.id, ' + ppp + ')');
         }
         $(playerindex).append("<td id=p" + pindex + "totals9 class='show-cell totals9' contenteditable='false'></td>");
         for (var i = 10; i < 19; i++) {
-            ppp = "'" + '#p' + pindex + 'h' + i + "'";
-            var new9td = "<td id=p" + pindex + "h" + i + " class='hide hole" + i + "' contenteditable='true' onblur='totalIt(this.id)' onfocus='stopEnterKey(this.id," + ppp + ")'></td>";
+            ppp = "\'" + '#p' + pindex + 'h' + i + "\'";
+            var new9td = "<td id=p" + pindex + "h" + i + " class='hide hole" + i + " contenteditable='true' onblur='totalIt(this.id)')></td>";
             $('#player' + pindex).append(new9td);
+            $('#p' + pindex + 'h' + i +'').attr('onfocus', 'stopEnterKey(this.id, ' + ppp + ')');
         }
         $(playerindex).append("<td id=p" + pindex + "totals18 class='totals18 hide' contenteditable='false'></td>");
     }
     if (holed == 18) {
         for (var i = 1; i < 10; i++) {
-            ppp = "'" + '#p' + pindex + 'h' + i + "'";
-            newp = "<td id=p" + pindex + "h" + i + " class='show-cell hole" + i + "' contenteditable='true' onblur='totalIt(this.id)' onfocus='stopEnterKey(this.id," + ppp + ")'></td>";
+            ppp = "\'" + '#p' + pindex + 'h' + i + "\'";
+            newp = "<td id=p" + pindex + "h" + i + " class='hole" + i + "' contenteditable='true' onblur='totalIt(this.id)')></td>";
             $('#player' + pindex).append(newp);
+            $('#p' + pindex + 'h' + i +'').attr('onfocus', 'stopEnterKey(this.id, ' + ppp + ')');
         }
         $(playerindex).append("<td id=p" + pindex + "totals9 class='hide totals9' contenteditable='false'></td>");
         for (var i = 10; i < 19; i++) {
-            ppp = "'" + '#p' + pindex + 'h' + i + "'";
-            newp = "<td id=p" + pindex + "h" + i + " class='show-cell hole" + i + "' contenteditable='true' onblur='totalIt(this.id)' onfocus='stopEnterKey(this.id," + ppp + ")'></td>";
+            ppp = "\'" + '#p' + pindex + 'h' + i + "\'";
+            newp = "<td id=p" + pindex + "h" + i + " class='hole" + i + "' contenteditable='true' onblur='totalIt(this.id)')></td>";
             $('#player' + pindex).append(newp);
+            $('#p' + pindex + 'h' + i +'').attr('onfocus', 'stopEnterKey(this.id, ' + ppp + ')');
         }
         $(playerindex).append("<td id=p" + pindex + "totals18 class='totals18 show-cell' contenteditable='false'></td>");
     }
@@ -346,7 +531,6 @@ function addRow() {
 }
 function activatecb(id, torf) {
     var ids = $('#' + id);
-    var crow = ids.closest("tr");
     var acbf = 'activatecb(id, false)';
     var acbt = 'activatecb(id, true)';
     if (torf) {
@@ -377,86 +561,24 @@ function deleteRow() {
     $('#removeP').addClass('hide');
 
 }
-(function($){
-    $.fn.focusTextToEnd = function(){
-        this.focus();
-        var $thisVal = this.val();
-        this.val('').val($thisVal);
-        return this;
-    }
-}(jQuery));
-var count = 1;
 function stopEnterKey(id, next) {
     $('#' + id).on('keydown', function(e) {
-        var idR = $("#playersTable").find("tr").last();
+        var count = $('#ptbody').children('tr').length;
+        var reindex = /^[^\d]*(\d+)/.exec(id);
+        var ri = Number(reindex[1]);
+        var eindex = /(\d+)(?!.*\d)/.exec(id);
+        var ei = Number(eindex[1]);
         if(e.keyCode == 13)
         {
-            var answer = $(next).closest('tr');
-            if (answer == idR) {
-                count++;
-                $('#p1hole' + count).focus();
+            if (ri == (count)) {
+                $('#p1' + 'h' + (ei+1) + '').focus();
                 e.preventDefault();
             }
-            //if (next.parent() == idR) {
-            //
-            //}
-            $(next).focus();
-            e.preventDefault();
+            else {
+                $(next).focus();
+                e.preventDefault();
+            }
         }
     });
 }
-function emButtonclicked() {
-
-    // parse playersTable for td values
-    // use localStorage to store values for innerText
-    // email scores and winners to email addresses that are set up on the email page
-    var table = $('#playersTable').tableToJSON();// Convert the table into a javascript object
-    localStorage.setItem('scores', JSON.stringify(table));
-    window.open('email.html');
-}
-// sorting has screwed everything else up. Need to figure out a better way
-//$('thead th').each(function(column) {
-//    $(this).addClass('sortable').click(function(){
-//        var findSortKey = function($cell) {
-//            return $cell.find('.sort-key').text().toUpperCase() + ' ' + $cell.text().toUpperCase();
-//        };
-//        var sortDirection = $(this).is('.sorted-asc') ? -1 : 1;
-//
-//        //step back up the tree and get the rows with data
-//        //for sorting
-//        var $rows = $(this).parent().parent().parent().find('tbody tr').get();
-//
-//        //loop through all the rows and find
-//        $.each($rows, function(index, row) {
-//            row.sortKey = findSortKey($(row).children('td').eq(column));
-//        });
-//
-//        //compare and sort the rows alphabetically
-//        $rows.sort(function(a, b) {
-//            if (a.sortKey < b.sortKey) return -sortDirection;
-//            if (a.sortKey > b.sortKey) return sortDirection;
-//            return 0;
-//        });
-//
-//        //add the rows in the correct order to the bottom of the table
-//        $.each($rows, function(index, row) {
-//            $('tbody').append(row);
-//            row.sortKey = null;
-//        });
-//
-//        //identify the column sort order
-//        $('th').removeClass('sorted-asc sorted-desc');
-//        var $sortHead = $('th').filter(':nth-child(' + (column + 1) + ')');
-//        sortDirection == 1 ? $sortHead.addClass('sorted-asc') : $sortHead.addClass('sorted-desc');
-//
-//        //identify the column to be sorted by
-//        $('td').removeClass('sorted')
-//            .filter(':nth-child(' + (column + 1) + ')')
-//            .addClass('sorted');
-//
-//        $('.visible td').removeClass('odd');
-//    });
-//});
-
-
-
+$(document).ready(settings());

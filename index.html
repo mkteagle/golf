@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>Golf Score Card</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/css/materialize.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./css/style.css">
@@ -15,10 +14,10 @@
         <a href="#" class="brand-logo logos" id="courseName">Golf Score Card</a>
         <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
         <ul class="right hide-on-med-and-down">
-            <li><a href="#" onclick="settings()">Settings</a></li>
+            <li><a onclick="settings()">Settings</a></li>
         </ul>
         <ul class="side-nav" id="mobile-demo">
-            <li><a href="#" onclick="settings()">Settings</a></li>
+            <li><a onclick="settings()">Settings</a></li>
         </ul>
     </div>
 </nav>
@@ -30,6 +29,7 @@
             <div class="collapsible-header"><i class="material-icons">filter_drama</i>Legend</div>
             <div class="collapsible-body addStyle">
                 <table id="legendTable">
+                    <thead>
                     <th></th>
                     <th id="hole1" onclick="findHoleCenter(this.id)">Hole 1</th>
                     <th id="hole2" onclick="findHoleCenter(this.id)">Hole 2</th>
@@ -51,6 +51,7 @@
                     <th id="hole17" onclick="findHoleCenter(this.id)" class="hide hole17">Hole 17</th>
                     <th id="hole18" onclick="findHoleCenter(this.id)" class="hide hole18">Hole 18</th>
                     <th id="totaly" class="hide totals18">Total</th>
+                    </thead>
                     <tr class="par">
                         <td class="par">Par</td>
                         <td class="hole1" id="par1"></td>
@@ -74,6 +75,29 @@
                         <td class="hole18 hide" id="par18"></td>
                         <td class="totals18 hide" id="ptotal18"></td>
 
+                    </tr>
+                    <tr class="hc">
+                        <td class="handicap">Handicap</td>
+                        <td class="hole1" id="hc1"></td>
+                        <td class="hole2" id="hc2"></td>
+                        <td class="hole3" id="hc3"></td>
+                        <td class="hole4" id="hc4"></td>
+                        <td class="hole5" id="hc5"></td>
+                        <td class="hole6" id="hc6"></td>
+                        <td class="hole7" id="hc7"></td>
+                        <td class="hole8" id="hc8"></td>
+                        <td class="hole9" id="hc9"></td>
+                        <td class="totals9" id="hctotal9"></td>
+                        <td class="hole10 hide" id="hc10"></td>
+                        <td class="hole11 hide" id="hc11"></td>
+                        <td class="hole12 hide" id="hc12"></td>
+                        <td class="hole13 hide" id="hc13"></td>
+                        <td class="hole14 hide" id="hc14"></td>
+                        <td class="hole15 hide" id="hc15"></td>
+                        <td class="hole16 hide" id="hc16"></td>
+                        <td class="hole17 hide" id="hc17"></td>
+                        <td class="hole18 hide" id="hc18"></td>
+                        <td class="totals18 hide" id="hctotal18"></td>
                     </tr>
                     <tr class="men hide">
                         <td class="menhole" id="lmens">Men's</td>
@@ -200,7 +224,7 @@
             <th id="htotals18header" class="totals18 hide" contenteditable="false">Total</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id ="ptbody">
         <tr id="player1">
             <td id="p1cb" class="cb cbhover" onclick="activatecb(this.id, true)"><i class="fa fa-pencil"></i></td>
             <td id="p1Name" class="nameheading" onfocus="stopEnterKey(this.id)" contenteditable="false">Michael Teagle
@@ -374,12 +398,16 @@
         </tr>
         </tbody>
     </table>
-    <div class="row">
-        <div id="addP" class="col s2"><a onclick="addRow()">Add Player</a></div>
-        <div id="removeP" class="col s2 hide"><a onclick="deleteRow()">Remove Player</a></div>
+    <div id="outer2">
+        <a id="addP" class = "waves-effect waves-purple inner btn btn-big green" onclick="addRow()">Add Player</a>
+        <a id="removeP" class="waves-effect waves-blue hide btn btn-big red" onclick="deleteRow()">Remove Player</a>
+        <a class="inner btn btn-big blue" onclick="endGame(); finalTotals()">End Game</a>
+        <a class="inner btn btn-big yellow" onclick="clearTable()">Clear Table</a>
     </div>
+
 </section>
-<div id="boxes">
+
+<div class="boxes">
     <div id="dialog" class="window">
         <div class="holder">
             <form class="col s12 m6">
@@ -397,21 +425,31 @@
                     <option value=9>9 Holes</option>
                     <option value=18>18 Holes</option>
                 </select>
-                <input type="submit" class="close agree" value="Save Settings" onclick="submitSettings()">
-                <button class="close agree" onclick="deleteMarkers()">Clear Markers</button>
-                <button class="close email" onclick="emButtonclicked()">Email Scores</button>
+                <div id="outer">
+                        <div class="inner"><a class="waves-effect waves-purple close agree btn green secondary-content" onclick="submitSettings()">Save</a></div>
+                        <div class="inner"><a class="waves-effect waves-red close agree btn yellow secondary-content" onclick="deleteMarkers(); deleteTees()">Clear Map</a></div>
+                </div>
             </form>
         </div>
     </div>
 </div>
 <div id="mask"></div>
+<div class="egboxes">
+    <div id="egdialog" class="hide window">
+        <div class="holder">
+            <div id="endgametitle">You Ended the Game!!</div>
+            <div id="winner" class="col s12 m1">Winner Here!</div>
+            <div id="playersContainer"></div>
+        </div>
+    </div>
+</div>
+<div id="maskeg"></div>
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-<!--<script type="text/javascript" src="js/jquery.dataTables.min.js"></script>-->
-<script type="text/javascript" src="js/jquery.tabletojson.min.js"></script>
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.1/js/materialize.min.js"></script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzseJI9tag50xHhEFstcLwOufPGBYqZnk&signed_in=true&callback=initMap"></script>
 <script src="js/map.js"></script>
+<!--&callback=initMap-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAzseJI9tag50xHhEFstcLwOufPGBYqZnk&signed_in=true"></script>
 </body>
 </html>
